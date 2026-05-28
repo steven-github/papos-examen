@@ -77,10 +77,11 @@ export const mockExamQuestions: ExerciseQuestion[] = [
         id: "me-9",
         topic: "can-cant",
         type: "reorder",
-        prompt: "Ordena las palabras.",
+        prompt: "Ordena las palabras para formar una pregunta de permiso.",
         tokens: ["Can", "I", "the", "use", "computer"],
         correctOrder: ["Can", "I", "use", "the", "computer"],
-        explanation: "Las preguntas con can empiezan con Can y luego el sujeto.",
+        hint: "Debe quedar una pregunta: empieza con Can, sigue con I, luego el verbo use y termina con signo de pregunta.",
+        explanation: "La forma correcta es una pregunta de permiso: Can + sujeto + verbo + complemento.",
     },
     {
         id: "me-10",
