@@ -19,6 +19,16 @@ function quoteAgnosticPattern(value: string) {
   return escapeRegExp(value).replace(/'/g, "['’]");
 }
 
+function buildPhrasePattern(value: string) {
+  const escaped = quoteAgnosticPattern(value);
+
+  if (value.startsWith("-") || value.endsWith("-")) {
+    return escaped;
+  }
+
+  return `(?<![A-Za-z0-9])${escaped}(?![A-Za-z0-9])`;
+}
+
 export function HighlightedEvaluableText({ text, phrases = [] }: HighlightedEvaluableTextProps) {
   const normalized = Array.from(new Set(phrases.map((phrase) => phrase.trim()).filter(Boolean)));
 
@@ -28,7 +38,7 @@ export function HighlightedEvaluableText({ text, phrases = [] }: HighlightedEval
 
   const sortedByLength = [...normalized].sort((a, b) => b.length - a.length);
   const phraseSet = new Set(sortedByLength.map((phrase) => normalizeToken(phrase)));
-  const pattern = new RegExp(`(${sortedByLength.map((phrase) => quoteAgnosticPattern(phrase)).join("|")})`, "gi");
+  const pattern = new RegExp(`(${sortedByLength.map((phrase) => buildPhrasePattern(phrase)).join("|")})`, "gi");
 
   const parts: Array<{ value: string; highlighted: boolean }> = [];
   let cursor = 0;

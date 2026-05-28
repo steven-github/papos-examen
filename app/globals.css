@@ -119,6 +119,7 @@ input {
   border-radius: 0.5rem;
   padding: 0.08rem 0.4rem;
   border: 1px solid #93c5fd;
+  cursor: pointer;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
