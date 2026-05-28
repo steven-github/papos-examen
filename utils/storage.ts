@@ -1,4 +1,4 @@
-import { lessonOrder } from "@/data/lessons";
+import { lessonMap, lessonOrder } from "@/data/lessons";
 import type { AppProgress, LessonSlug, MistakeRecord, ScoreRecord, TopicProgressSummary } from "@/types";
 
 const STORAGE_KEY = "grammar-galaxy-progress-v1";
@@ -106,7 +106,7 @@ export function getTopicSummaries(progress: AppProgress): TopicProgressSummary[]
 export function getWeakAreas(progress: AppProgress): string[] {
   const weak = getTopicSummaries(progress)
     .filter((topic) => topic.quizBest < 80 || topic.practiceBest < 70)
-    .map((topic) => topic.id.replaceAll("-", " "));
+    .map((topic) => lessonMap[topic.id].title);
 
   return weak.length ? weak : ["You are doing great in every topic!"];
 }

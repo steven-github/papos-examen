@@ -7,7 +7,7 @@ import { ArrowRight, BookOpen, Brain } from "lucide-react";
 import { ChildHeader } from "@/components/ChildHeader";
 import { NavigationMenu } from "@/components/NavigationMenu";
 import { ProgressBar } from "@/components/ProgressBar";
-import { lessons } from "@/data/lessons";
+import { lessonMap, lessons } from "@/data/lessons";
 import { useProgress } from "@/hooks/useProgress";
 
 export default function HomePage() {
@@ -87,7 +87,7 @@ export default function HomePage() {
               >
                 <div className="mb-3 flex items-center justify-between gap-2">
                   <h3 className="section-title text-xl capitalize text-slate-800">
-                    <span className="evaluable-text">{topic.id.replaceAll("-", " ")}</span>
+                    <span className="evaluable-text">{lessonMap[topic.id].title}</span>
                   </h3>
                   <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-black text-amber-700">
                     {topic.lessonDone ? "Listo" : "Vamos"}

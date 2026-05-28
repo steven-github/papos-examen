@@ -3,7 +3,7 @@
 import { ChildHeader } from "@/components/ChildHeader";
 import { NavigationMenu } from "@/components/NavigationMenu";
 import { ProgressBar } from "@/components/ProgressBar";
-import { lessons } from "@/data/lessons";
+import { lessonMap, lessons } from "@/data/lessons";
 import { useProgress } from "@/hooks/useProgress";
 
 export default function ProgressPage() {
@@ -56,7 +56,7 @@ export default function ProgressPage() {
             {topicSummaries.map((topic) => (
               <div key={topic.id} className="rounded-3xl bg-white/90 p-4">
                 <h3 className="mb-2 text-sm font-black uppercase tracking-[0.2em] text-slate-500">
-                  <span className="evaluable-text">{topic.id.replaceAll("-", " ")}</span>
+                  <span className="evaluable-text">{lessonMap[topic.id].title}</span>
                 </h3>
                 <ProgressBar value={topic.quizBest} label="Quiz" tone="pink" />
               </div>
