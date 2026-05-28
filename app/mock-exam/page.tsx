@@ -10,12 +10,16 @@ import { ResultSummary } from "@/components/ResultSummary";
 import { mockExamQuestions } from "@/data/mockExam";
 import { useProgress } from "@/hooks/useProgress";
 import type { MistakeRecord } from "@/types";
+import { shuffleArray } from "@/utils/random";
 
 export default function MockExamPage() {
+  const [questionSet, setQuestionSet] = useState(() => shuffleArray(mockExamQuestions));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [mistakes, setMistakes] = useState<MistakeRecord[]>([]);
   const [answeredQuestionIds, setAnsweredQuestionIds] = useState<string[]>([]);
+  const [correctQuestionIds, setCorrectQuestionIds] = useState<string[]>([]);
+  const [wrongQuestionIds, setWrongQuestionIds] = useState<string[]>([]);
   const [answeredCurrent, setAnsweredCurrent] = useState(false);
   const [pendingFinalScore, setPendingFinalScore] = useState<number | null>(null);
   const [pendingFinalMistakes, setPendingFinalMistakes] = useState<MistakeRecord[] | null>(null);
@@ -23,14 +27,20 @@ export default function MockExamPage() {
   const [showCelebration, setShowCelebration] = useState(false);
 
   const { recordMockExam, progress } = useProgress();
-  const question = mockExamQuestions[currentIndex];
-  const score = useMemo(() => Math.round((correctCount / mockExamQuestions.length) * 100), [correctCount]);
+  const question = questionSet[currentIndex];
+  const score = useMemo(
+    () => Math.round((correctCount / questionSet.length) * 100),
+    [correctCount, questionSet.length],
+  );
 
   const reset = () => {
+    setQuestionSet(shuffleArray(mockExamQuestions));
     setCurrentIndex(0);
     setCorrectCount(0);
     setMistakes([]);
     setAnsweredQuestionIds([]);
+    setCorrectQuestionIds([]);
+    setWrongQuestionIds([]);
     setAnsweredCurrent(false);
     setPendingFinalScore(null);
     setPendingFinalMistakes(null);
@@ -48,16 +58,21 @@ export default function MockExamPage() {
 
     if (!isCorrect && mistake) {
       setMistakes((list) => [...list, mistake]);
+      setWrongQuestionIds((list) => (list.includes(question.id) ? list : [...list, question.id]));
+    }
+
+    if (isCorrect) {
+      setCorrectQuestionIds((list) => (list.includes(question.id) ? list : [...list, question.id]));
     }
 
     setAnsweredQuestionIds((list) => [...list, question.id]);
     setCorrectCount(nextCorrect);
 
-    const isLast = currentIndex >= mockExamQuestions.length - 1;
+    const nextAnsweredCount = answeredQuestionIds.length + 1;
 
-    if (isLast) {
+    if (nextAnsweredCount >= questionSet.length) {
       const allMistakes = isCorrect || !mistake ? mistakes : [...mistakes, mistake];
-      const nextScore = Math.round((nextCorrect / mockExamQuestions.length) * 100);
+      const nextScore = Math.round((nextCorrect / questionSet.length) * 100);
       setPendingFinalScore(nextScore);
       setPendingFinalMistakes(allMistakes);
       return;
@@ -77,8 +92,22 @@ export default function MockExamPage() {
   };
 
   const goToNextQuestion = () => {
-    setCurrentIndex((value) => value + 1);
-    setAnsweredCurrent(false);
+    if (!questionSet.length) {
+      return;
+    }
+
+    const sequentialIndex = currentIndex + 1 < questionSet.length ? currentIndex + 1 : 0;
+    const unansweredIndices = questionSet
+      .map((item, index) => (answeredQuestionIds.includes(item.id) ? -1 : index))
+      .filter((index) => index >= 0 && index !== currentIndex);
+
+    const nextIndex = unansweredIndices.includes(sequentialIndex)
+      ? sequentialIndex
+      : unansweredIndices[0] ?? sequentialIndex;
+
+    setCurrentIndex(nextIndex);
+    const nextQuestion = questionSet[nextIndex];
+    setAnsweredCurrent(answeredQuestionIds.includes(nextQuestion.id));
   };
 
   const goToPreviousQuestion = () => {
@@ -89,8 +118,35 @@ export default function MockExamPage() {
     }
 
     setCurrentIndex(previousIndex);
-    const previousQuestion = mockExamQuestions[previousIndex];
+    const previousQuestion = questionSet[previousIndex];
     setAnsweredCurrent(answeredQuestionIds.includes(previousQuestion.id));
+  };
+
+  const goToRandomRetryQuestion = () => {
+    const unansweredIndices = questionSet
+      .map((item, index) => (!answeredQuestionIds.includes(item.id) && !correctQuestionIds.includes(item.id) ? index : -1))
+      .filter((index) => index >= 0 && index !== currentIndex);
+
+    const failedIndices = questionSet
+      .map((item, index) => (wrongQuestionIds.includes(item.id) && !correctQuestionIds.includes(item.id) ? index : -1))
+      .filter((index) => index >= 0 && index !== currentIndex);
+
+    const candidates = unansweredIndices.length
+      ? unansweredIndices
+      : failedIndices.length
+        ? failedIndices
+        : questionSet
+            .map((item, index) => (!correctQuestionIds.includes(item.id) ? index : -1))
+            .filter((index) => index >= 0 && index !== currentIndex);
+
+    if (!candidates.length) {
+      return;
+    }
+
+    const nextIndex = candidates[Math.floor(Math.random() * candidates.length)] ?? currentIndex;
+    setCurrentIndex(nextIndex);
+    const targetQuestion = questionSet[nextIndex];
+    setAnsweredCurrent(answeredQuestionIds.includes(targetQuestion.id));
   };
 
   return (
@@ -107,17 +163,22 @@ export default function MockExamPage() {
         {!finished && question ? (
           <>
             <div className="glass-card rounded-4xl px-5 py-4 text-sm font-black text-slate-700">
-              Pregunta {currentIndex + 1} de {mockExamQuestions.length}
+              Pregunta {currentIndex + 1} de {questionSet.length}
             </div>
-            <ExerciseCard key={question.id} question={question} onAnswered={handleAnswered} />
+            <ExerciseCard
+              key={question.id}
+              question={question}
+              onAnswered={handleAnswered}
+              onRetryWrong={goToRandomRetryQuestion}
+            />
             {currentIndex > 0 || answeredCurrent ? (
               <div className="glass-card rounded-4xl p-5">
-                {answeredCurrent && currentIndex < mockExamQuestions.length - 1 ? (
+                {answeredCurrent && pendingFinalScore === null ? (
                   <p className="text-sm font-bold text-slate-600">
                     Lee la explicacion con calma. Avanza cuando ya la entiendas.
                   </p>
                 ) : null}
-                {answeredCurrent && currentIndex >= mockExamQuestions.length - 1 ? (
+                {answeredCurrent && pendingFinalScore !== null ? (
                   <p className="text-sm font-bold text-slate-600">
                     Ya respondiste la ultima pregunta. Lee la explicacion y luego presiona Ver resultado.
                   </p>
@@ -132,7 +193,7 @@ export default function MockExamPage() {
                       Ir a la pregunta anterior
                     </button>
                   ) : null}
-                  {answeredCurrent && currentIndex < mockExamQuestions.length - 1 ? (
+                  {answeredCurrent && pendingFinalScore === null ? (
                     <button
                       type="button"
                       onClick={goToNextQuestion}
@@ -141,7 +202,7 @@ export default function MockExamPage() {
                       Avanzar a la siguiente pregunta
                     </button>
                   ) : null}
-                  {answeredCurrent && currentIndex >= mockExamQuestions.length - 1 ? (
+                  {answeredCurrent && pendingFinalScore !== null ? (
                     <button
                       type="button"
                       onClick={finishMockExam}
@@ -158,7 +219,7 @@ export default function MockExamPage() {
           <ResultSummary
             score={score}
             correct={correctCount}
-            total={mockExamQuestions.length}
+            total={questionSet.length}
             title={score >= 85 ? "Excelente simulacro!" : "Buen intento! Revisa y vuelve a jugar."}
             onRetry={reset}
           />

@@ -19,6 +19,7 @@ interface ExerciseCardProps {
   question: ExerciseQuestion;
   onAnswered: (isCorrect: boolean, mistake?: MistakeRecord) => void;
   disabled?: boolean;
+  onRetryWrong?: () => void;
 }
 
 function normalized(value: string) {
@@ -98,7 +99,7 @@ function buildFillBlankHint(question: FillBlankQuestion): string {
   return `${ruleHint} La respuesta empieza con "${firstLetter}", termina con "${lastLetter}" y tiene ${trimmed.length} letras.`.trim();
 }
 
-export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardProps) {
+export function ExerciseCard({ question, onAnswered, disabled, onRetryWrong }: ExerciseCardProps) {
   const [selectedChoice, setSelectedChoice] = useState<string>("");
   const [fillValue, setFillValue] = useState("");
   const [showFillHint, setShowFillHint] = useState(false);
@@ -445,10 +446,17 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
           {!isCorrect && !disabled ? (
             <button
               type="button"
-              onClick={resetQuestionAttempt}
+              onClick={() => {
+                if (onRetryWrong) {
+                  onRetryWrong();
+                  return;
+                }
+
+                resetQuestionAttempt();
+              }}
               className="mt-3 rounded-full bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-700 ring-1 ring-slate-200"
             >
-              REINTENTAR
+              REINTENTAR (RANDOM)
             </button>
           ) : null}
         </div>

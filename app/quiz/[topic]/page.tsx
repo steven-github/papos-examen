@@ -12,16 +12,21 @@ import { ResultSummary } from "@/components/ResultSummary";
 import { quizMap } from "@/data/quizzes";
 import { useProgress } from "@/hooks/useProgress";
 import type { LessonSlug, MistakeRecord } from "@/types";
+import { shuffleArray } from "@/utils/random";
 
 export default function TopicQuizPage() {
   const params = useParams<{ topic: string }>();
   const topic = params.topic as LessonSlug;
   const quiz = quizMap[topic];
+  const baseQuestions = quiz?.questions ?? [];
+  const [questionSet, setQuestionSet] = useState(() => shuffleArray(baseQuestions));
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [mistakes, setMistakes] = useState<MistakeRecord[]>([]);
   const [answeredQuestionIds, setAnsweredQuestionIds] = useState<string[]>([]);
+  const [correctQuestionIds, setCorrectQuestionIds] = useState<string[]>([]);
+  const [wrongQuestionIds, setWrongQuestionIds] = useState<string[]>([]);
   const [answeredCurrent, setAnsweredCurrent] = useState(false);
   const [pendingFinalScore, setPendingFinalScore] = useState<number | null>(null);
   const [pendingFinalMistakes, setPendingFinalMistakes] = useState<MistakeRecord[] | null>(null);
@@ -30,8 +35,8 @@ export default function TopicQuizPage() {
 
   const { recordQuiz, progress } = useProgress();
 
-  const score = quiz
-    ? Math.round((correctCount / quiz.questions.length) * 100)
+  const score = quiz && questionSet.length
+    ? Math.round((correctCount / questionSet.length) * 100)
     : 0;
 
   if (!quiz) {
@@ -47,13 +52,16 @@ export default function TopicQuizPage() {
     );
   }
 
-  const question = quiz.questions[currentIndex];
+  const question = questionSet[currentIndex];
 
   const reset = () => {
+    setQuestionSet(shuffleArray(baseQuestions));
     setCurrentIndex(0);
     setCorrectCount(0);
     setMistakes([]);
     setAnsweredQuestionIds([]);
+    setCorrectQuestionIds([]);
+    setWrongQuestionIds([]);
     setAnsweredCurrent(false);
     setPendingFinalScore(null);
     setPendingFinalMistakes(null);
@@ -71,16 +79,21 @@ export default function TopicQuizPage() {
 
     if (!isCorrect && mistake) {
       setMistakes((list) => [...list, mistake]);
+      setWrongQuestionIds((list) => (list.includes(question.id) ? list : [...list, question.id]));
+    }
+
+    if (isCorrect) {
+      setCorrectQuestionIds((list) => (list.includes(question.id) ? list : [...list, question.id]));
     }
 
     setAnsweredQuestionIds((list) => [...list, question.id]);
     setCorrectCount(nextCorrect);
 
-    const isLast = currentIndex >= quiz.questions.length - 1;
+    const nextAnsweredCount = answeredQuestionIds.length + 1;
 
-    if (isLast) {
+    if (nextAnsweredCount >= questionSet.length) {
       const allMistakes = isCorrect || !mistake ? mistakes : [...mistakes, mistake];
-      const nextScore = Math.round((nextCorrect / quiz.questions.length) * 100);
+      const nextScore = Math.round((nextCorrect / questionSet.length) * 100);
       setPendingFinalScore(nextScore);
       setPendingFinalMistakes(allMistakes);
       return;
@@ -100,8 +113,22 @@ export default function TopicQuizPage() {
   };
 
   const goToNextQuestion = () => {
-    setCurrentIndex((value) => value + 1);
-    setAnsweredCurrent(false);
+    if (!questionSet.length) {
+      return;
+    }
+
+    const sequentialIndex = currentIndex + 1 < questionSet.length ? currentIndex + 1 : 0;
+    const unansweredIndices = questionSet
+      .map((item, index) => (answeredQuestionIds.includes(item.id) ? -1 : index))
+      .filter((index) => index >= 0 && index !== currentIndex);
+
+    const nextIndex = unansweredIndices.includes(sequentialIndex)
+      ? sequentialIndex
+      : unansweredIndices[0] ?? sequentialIndex;
+
+    setCurrentIndex(nextIndex);
+    const nextQuestion = questionSet[nextIndex];
+    setAnsweredCurrent(answeredQuestionIds.includes(nextQuestion.id));
   };
 
   const goToPreviousQuestion = () => {
@@ -112,8 +139,36 @@ export default function TopicQuizPage() {
     }
 
     setCurrentIndex(previousIndex);
-    const previousQuestion = quiz.questions[previousIndex];
+    const previousQuestion = questionSet[previousIndex];
     setAnsweredCurrent(answeredQuestionIds.includes(previousQuestion.id));
+  };
+
+  const goToRandomRetryQuestion = () => {
+    const unansweredIndices = questionSet
+      .map((item, index) => (!answeredQuestionIds.includes(item.id) && !correctQuestionIds.includes(item.id) ? index : -1))
+      .filter((index) => index >= 0 && index !== currentIndex);
+
+    const failedIndices = questionSet
+      .map((item, index) => (wrongQuestionIds.includes(item.id) && !correctQuestionIds.includes(item.id) ? index : -1))
+      .filter((index) => index >= 0 && index !== currentIndex);
+
+    const candidates = unansweredIndices.length
+      ? unansweredIndices
+      : failedIndices.length
+        ? failedIndices
+        : questionSet
+            .map((item, index) => (!correctQuestionIds.includes(item.id) ? index : -1))
+            .filter((index) => index >= 0 && index !== currentIndex);
+
+    if (!candidates.length) {
+      return;
+    }
+
+    const absoluteIndex = candidates[Math.floor(Math.random() * candidates.length)] ?? currentIndex;
+
+    setCurrentIndex(absoluteIndex);
+    const targetQuestion = questionSet[absoluteIndex];
+    setAnsweredCurrent(answeredQuestionIds.includes(targetQuestion.id));
   };
 
   return (
@@ -135,17 +190,22 @@ export default function TopicQuizPage() {
         {!finished && question ? (
           <>
             <div className="glass-card rounded-4xl px-5 py-4 text-sm font-black text-slate-700">
-              Pregunta {currentIndex + 1} de {quiz.questions.length}
+              Pregunta {currentIndex + 1} de {questionSet.length}
             </div>
-            <ExerciseCard key={question.id} question={question} onAnswered={handleAnswered} />
+            <ExerciseCard
+              key={question.id}
+              question={question}
+              onAnswered={handleAnswered}
+              onRetryWrong={goToRandomRetryQuestion}
+            />
             {currentIndex > 0 || answeredCurrent ? (
               <div className="glass-card rounded-4xl p-5">
-                {answeredCurrent && currentIndex < quiz.questions.length - 1 ? (
+                {answeredCurrent && pendingFinalScore === null ? (
                   <p className="text-sm font-bold text-slate-600">
                     Mira la explicacion y avanza cuando ya la entiendas.
                   </p>
                 ) : null}
-                {answeredCurrent && currentIndex >= quiz.questions.length - 1 ? (
+                {answeredCurrent && pendingFinalScore !== null ? (
                   <p className="text-sm font-bold text-slate-600">
                     Ya respondiste la ultima pregunta. Lee la explicacion y luego presiona Ver resultado.
                   </p>
@@ -160,7 +220,7 @@ export default function TopicQuizPage() {
                       Ir a la pregunta anterior
                     </button>
                   ) : null}
-                  {answeredCurrent && currentIndex < quiz.questions.length - 1 ? (
+                  {answeredCurrent && pendingFinalScore === null ? (
                     <button
                       type="button"
                       onClick={goToNextQuestion}
@@ -169,7 +229,7 @@ export default function TopicQuizPage() {
                       Avanzar a la siguiente pregunta
                     </button>
                   ) : null}
-                  {answeredCurrent && currentIndex >= quiz.questions.length - 1 ? (
+                  {answeredCurrent && pendingFinalScore !== null ? (
                     <button
                       type="button"
                       onClick={finishQuiz}
@@ -186,7 +246,7 @@ export default function TopicQuizPage() {
           <ResultSummary
             score={score}
             correct={correctCount}
-            total={quiz.questions.length}
+            total={questionSet.length}
             title={score >= 80 ? "Campeon del quiz!" : "Vas muy bien! Intentalo otra vez."}
             onRetry={reset}
           />

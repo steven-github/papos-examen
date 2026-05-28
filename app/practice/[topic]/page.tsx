@@ -12,17 +12,21 @@ import { practiceByTopic } from "@/data/exercises";
 import { lessonMap } from "@/data/lessons";
 import { useProgress } from "@/hooks/useProgress";
 import type { LessonSlug, MistakeRecord } from "@/types";
+import { shuffleArray } from "@/utils/random";
 
 export default function TopicPracticePage() {
   const params = useParams<{ topic: string }>();
   const topic = params.topic as LessonSlug;
-  const questions = practiceByTopic[topic];
+  const baseQuestions = practiceByTopic[topic] ?? [];
+  const [questionSet, setQuestionSet] = useState(() => shuffleArray(baseQuestions));
   const lesson = lessonMap[topic];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [mistakes, setMistakes] = useState<MistakeRecord[]>([]);
   const [answeredQuestionIds, setAnsweredQuestionIds] = useState<string[]>([]);
+  const [correctQuestionIds, setCorrectQuestionIds] = useState<string[]>([]);
+  const [wrongQuestionIds, setWrongQuestionIds] = useState<string[]>([]);
   const [answeredCurrent, setAnsweredCurrent] = useState(false);
   const [pendingFinalScore, setPendingFinalScore] = useState<number | null>(null);
   const [pendingFinalMistakes, setPendingFinalMistakes] = useState<MistakeRecord[] | null>(null);
@@ -30,16 +34,16 @@ export default function TopicPracticePage() {
   const [showCelebration, setShowCelebration] = useState(false);
 
   const { recordPractice, progress } = useProgress();
-  const question = questions?.[currentIndex];
+  const question = questionSet?.[currentIndex];
   const score = useMemo(() => {
-    if (!questions?.length) {
+    if (!questionSet?.length) {
       return 0;
     }
 
-    return Math.round((correctCount / questions.length) * 100);
-  }, [correctCount, questions]);
+    return Math.round((correctCount / questionSet.length) * 100);
+  }, [correctCount, questionSet]);
 
-  if (!lesson || !questions?.length) {
+  if (!lesson || !baseQuestions.length) {
     return (
       <div className="page-shell">
         <NavigationMenu />
@@ -53,10 +57,13 @@ export default function TopicPracticePage() {
   }
 
   const reset = () => {
+    setQuestionSet(shuffleArray(baseQuestions));
     setCurrentIndex(0);
     setCorrectCount(0);
     setMistakes([]);
     setAnsweredQuestionIds([]);
+    setCorrectQuestionIds([]);
+    setWrongQuestionIds([]);
     setAnsweredCurrent(false);
     setPendingFinalScore(null);
     setPendingFinalMistakes(null);
@@ -74,16 +81,21 @@ export default function TopicPracticePage() {
 
     if (!isCorrect && mistake) {
       setMistakes((list) => [...list, mistake]);
+      setWrongQuestionIds((list) => (list.includes(question.id) ? list : [...list, question.id]));
+    }
+
+    if (isCorrect) {
+      setCorrectQuestionIds((list) => (list.includes(question.id) ? list : [...list, question.id]));
     }
 
     setAnsweredQuestionIds((list) => [...list, question.id]);
     setCorrectCount(nextCorrect);
 
-    const isLast = currentIndex >= questions.length - 1;
+    const nextAnsweredCount = answeredQuestionIds.length + 1;
 
-    if (isLast) {
+    if (nextAnsweredCount >= questionSet.length) {
       const allMistakes = isCorrect || !mistake ? mistakes : [...mistakes, mistake];
-      const nextScore = Math.round((nextCorrect / questions.length) * 100);
+      const nextScore = Math.round((nextCorrect / questionSet.length) * 100);
       setPendingFinalScore(nextScore);
       setPendingFinalMistakes(allMistakes);
       return;
@@ -103,8 +115,22 @@ export default function TopicPracticePage() {
   };
 
   const goToNextQuestion = () => {
-    setCurrentIndex((value) => value + 1);
-    setAnsweredCurrent(false);
+    if (!questionSet.length) {
+      return;
+    }
+
+    const sequentialIndex = currentIndex + 1 < questionSet.length ? currentIndex + 1 : 0;
+    const unansweredIndices = questionSet
+      .map((item, index) => (answeredQuestionIds.includes(item.id) ? -1 : index))
+      .filter((index) => index >= 0 && index !== currentIndex);
+
+    const nextIndex = unansweredIndices.includes(sequentialIndex)
+      ? sequentialIndex
+      : unansweredIndices[0] ?? sequentialIndex;
+
+    setCurrentIndex(nextIndex);
+    const nextQuestion = questionSet[nextIndex];
+    setAnsweredCurrent(answeredQuestionIds.includes(nextQuestion.id));
   };
 
   const goToPreviousQuestion = () => {
@@ -115,8 +141,35 @@ export default function TopicPracticePage() {
     }
 
     setCurrentIndex(previousIndex);
-    const previousQuestion = questions[previousIndex];
+    const previousQuestion = questionSet[previousIndex];
     setAnsweredCurrent(answeredQuestionIds.includes(previousQuestion.id));
+  };
+
+  const goToRandomRetryQuestion = () => {
+    const unansweredIndices = questionSet
+      .map((item, index) => (!answeredQuestionIds.includes(item.id) && !correctQuestionIds.includes(item.id) ? index : -1))
+      .filter((index) => index >= 0 && index !== currentIndex);
+
+    const failedIndices = questionSet
+      .map((item, index) => (wrongQuestionIds.includes(item.id) && !correctQuestionIds.includes(item.id) ? index : -1))
+      .filter((index) => index >= 0 && index !== currentIndex);
+
+    const candidates = unansweredIndices.length
+      ? unansweredIndices
+      : failedIndices.length
+        ? failedIndices
+        : questionSet
+            .map((item, index) => (!correctQuestionIds.includes(item.id) ? index : -1))
+            .filter((index) => index >= 0 && index !== currentIndex);
+
+    if (!candidates.length) {
+      return;
+    }
+
+    const nextIndex = candidates[Math.floor(Math.random() * candidates.length)] ?? currentIndex;
+    setCurrentIndex(nextIndex);
+    const targetQuestion = questionSet[nextIndex];
+    setAnsweredCurrent(answeredQuestionIds.includes(targetQuestion.id));
   };
 
   return (
@@ -133,17 +186,22 @@ export default function TopicPracticePage() {
         {!finished && question ? (
           <>
             <div className="glass-card rounded-4xl px-5 py-4 text-sm font-black text-slate-700">
-              Pregunta {currentIndex + 1} de {questions.length}
+              Pregunta {currentIndex + 1} de {questionSet.length}
             </div>
-            <ExerciseCard key={question.id} question={question} onAnswered={handleAnswered} />
+            <ExerciseCard
+              key={question.id}
+              question={question}
+              onAnswered={handleAnswered}
+              onRetryWrong={goToRandomRetryQuestion}
+            />
             {currentIndex > 0 || answeredCurrent ? (
               <div className="glass-card rounded-4xl p-5">
-                {answeredCurrent && currentIndex < questions.length - 1 ? (
+                {answeredCurrent && pendingFinalScore === null ? (
                   <p className="text-sm font-bold text-slate-600">
                     Mira la explicacion y avanza cuando ya la entiendas.
                   </p>
                 ) : null}
-                {answeredCurrent && currentIndex >= questions.length - 1 ? (
+                {answeredCurrent && pendingFinalScore !== null ? (
                   <p className="text-sm font-bold text-slate-600">
                     Ya respondiste la ultima pregunta. Lee la explicacion y luego presiona Ver resultado.
                   </p>
@@ -158,7 +216,7 @@ export default function TopicPracticePage() {
                       Ir a la pregunta anterior
                     </button>
                   ) : null}
-                  {answeredCurrent && currentIndex < questions.length - 1 ? (
+                  {answeredCurrent && pendingFinalScore === null ? (
                     <button
                       type="button"
                       onClick={goToNextQuestion}
@@ -167,7 +225,7 @@ export default function TopicPracticePage() {
                       Avanzar a la siguiente pregunta
                     </button>
                   ) : null}
-                  {answeredCurrent && currentIndex >= questions.length - 1 ? (
+                  {answeredCurrent && pendingFinalScore !== null ? (
                     <button
                       type="button"
                       onClick={finishPractice}
@@ -184,7 +242,7 @@ export default function TopicPracticePage() {
           <ResultSummary
             score={score}
             correct={correctCount}
-            total={questions.length}
+            total={questionSet.length}
             title={score >= 80 ? "Genial! Lo hiciste super bien!" : "Buen trabajo! Vamos por otra ronda."}
             onRetry={reset}
           />
