@@ -23,6 +23,8 @@ export default function TopicQuizPage() {
   const [mistakes, setMistakes] = useState<MistakeRecord[]>([]);
   const [answeredQuestionIds, setAnsweredQuestionIds] = useState<string[]>([]);
   const [answeredCurrent, setAnsweredCurrent] = useState(false);
+  const [pendingFinalScore, setPendingFinalScore] = useState<number | null>(null);
+  const [pendingFinalMistakes, setPendingFinalMistakes] = useState<MistakeRecord[] | null>(null);
   const [finished, setFinished] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
 
@@ -53,6 +55,8 @@ export default function TopicQuizPage() {
     setMistakes([]);
     setAnsweredQuestionIds([]);
     setAnsweredCurrent(false);
+    setPendingFinalScore(null);
+    setPendingFinalMistakes(null);
     setFinished(false);
   };
 
@@ -77,12 +81,21 @@ export default function TopicQuizPage() {
     if (isLast) {
       const allMistakes = isCorrect || !mistake ? mistakes : [...mistakes, mistake];
       const nextScore = Math.round((nextCorrect / quiz.questions.length) * 100);
-      recordQuiz(topic, nextScore, allMistakes);
-      setFinished(true);
-      if (nextScore >= 80) {
-        setShowCelebration(true);
-      }
+      setPendingFinalScore(nextScore);
+      setPendingFinalMistakes(allMistakes);
       return;
+    }
+  };
+
+  const finishQuiz = () => {
+    const finalScore = pendingFinalScore ?? score;
+    const finalMistakes = pendingFinalMistakes ?? mistakes;
+
+    recordQuiz(topic, finalScore, finalMistakes);
+    setFinished(true);
+
+    if (finalScore >= 80) {
+      setShowCelebration(true);
     }
   };
 
@@ -125,11 +138,16 @@ export default function TopicQuizPage() {
               Pregunta {currentIndex + 1} de {quiz.questions.length}
             </div>
             <ExerciseCard key={question.id} question={question} onAnswered={handleAnswered} />
-            {currentIndex > 0 || (answeredCurrent && currentIndex < quiz.questions.length - 1) ? (
+            {currentIndex > 0 || answeredCurrent ? (
               <div className="glass-card rounded-4xl p-5">
                 {answeredCurrent && currentIndex < quiz.questions.length - 1 ? (
                   <p className="text-sm font-bold text-slate-600">
                     Mira la explicacion y avanza cuando ya la entiendas.
+                  </p>
+                ) : null}
+                {answeredCurrent && currentIndex >= quiz.questions.length - 1 ? (
+                  <p className="text-sm font-bold text-slate-600">
+                    Ya respondiste la ultima pregunta. Lee la explicacion y luego presiona Ver resultado.
                   </p>
                 ) : null}
                 <div className="mt-3 flex flex-wrap gap-3">
@@ -149,6 +167,15 @@ export default function TopicQuizPage() {
                       className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white"
                     >
                       Avanzar a la siguiente pregunta
+                    </button>
+                  ) : null}
+                  {answeredCurrent && currentIndex >= quiz.questions.length - 1 ? (
+                    <button
+                      type="button"
+                      onClick={finishQuiz}
+                      className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white"
+                    >
+                      Ver resultado
                     </button>
                   ) : null}
                 </div>
