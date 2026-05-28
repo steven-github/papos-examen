@@ -166,10 +166,46 @@ export default function TopicPracticePage() {
       return;
     }
 
-    const nextIndex = candidates[Math.floor(Math.random() * candidates.length)] ?? currentIndex;
-    setCurrentIndex(nextIndex);
-    const targetQuestion = questionSet[nextIndex];
-    setAnsweredCurrent(answeredQuestionIds.includes(targetQuestion.id));
+    const pickedIndex = candidates[Math.floor(Math.random() * candidates.length)] ?? currentIndex;
+    const replacementQuestion = questionSet[pickedIndex];
+
+    if (!replacementQuestion) {
+      return;
+    }
+
+    // Keep "Pregunta X de Y" fixed and only replace the question shown in that slot.
+    setQuestionSet((current) => {
+      const next = [...current];
+      const currentQuestion = next[currentIndex];
+      next[currentIndex] = replacementQuestion;
+      if (currentQuestion) {
+        next[pickedIndex] = currentQuestion;
+      }
+      return next;
+    });
+
+    const replacementId = replacementQuestion.id;
+    const wasAnswered = answeredQuestionIds.includes(replacementId);
+
+    if (wasAnswered) {
+      setAnsweredQuestionIds((list) => list.filter((id) => id !== replacementId));
+
+      const wasCorrect = correctQuestionIds.includes(replacementId);
+      if (wasCorrect) {
+        setCorrectQuestionIds((list) => list.filter((id) => id !== replacementId));
+        setCorrectCount((value) => Math.max(0, value - 1));
+      }
+
+      setWrongQuestionIds((list) => list.filter((id) => id !== replacementId));
+      setMistakes((list) => list.filter((mistake) => mistake.questionId !== replacementId));
+
+      if (pendingFinalScore !== null) {
+        setPendingFinalScore(null);
+        setPendingFinalMistakes(null);
+      }
+    }
+
+    setAnsweredCurrent(false);
   };
 
   return (
