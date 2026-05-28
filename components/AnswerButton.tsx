@@ -20,7 +20,7 @@ export function AnswerButton({
     : wrong
       ? "border-rose-400 bg-rose-100 text-rose-800"
       : selected
-        ? "border-blue-400 bg-blue-100 text-blue-800"
+        ? "border-blue-700 bg-blue-700 text-white"
         : "border-white/60 bg-white/80 text-slate-700 hover:border-blue-200 hover:bg-blue-50";
 
   return (
