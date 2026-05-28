@@ -30,3 +30,22 @@ export function pickRandomIndex(length: number, excluded: number[] = []): number
   const index = Math.floor(Math.random() * available.length);
   return available[index] ?? null;
 }
+
+export function buildQuestionSession<T extends { id: string }>(questions: T[], total: number): T[] {
+  if (!questions.length || total <= 0) {
+    return [];
+  }
+
+  const session: T[] = [];
+
+  for (let i = 0; i < total; i += 1) {
+    const source = questions[Math.floor(Math.random() * questions.length)] ?? questions[0];
+    if (!source) {
+      break;
+    }
+
+    session.push({ ...source, id: `${source.id}__${i + 1}` } as T);
+  }
+
+  return shuffleArray(session);
+}

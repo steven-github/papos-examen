@@ -456,7 +456,7 @@ export function ExerciseCard({ question, onAnswered, disabled, onRetryWrong }: E
               }}
               className="mt-3 rounded-full bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-700 ring-1 ring-slate-200"
             >
-              REINTENTAR (RANDOM)
+              {onRetryWrong ? "REINTENTAR (RANDOM)" : "REINTENTAR"}
             </button>
           ) : null}
         </div>

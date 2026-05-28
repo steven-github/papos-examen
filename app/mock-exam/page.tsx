@@ -18,8 +18,6 @@ export default function MockExamPage() {
   const [correctCount, setCorrectCount] = useState(0);
   const [mistakes, setMistakes] = useState<MistakeRecord[]>([]);
   const [answeredQuestionIds, setAnsweredQuestionIds] = useState<string[]>([]);
-  const [correctQuestionIds, setCorrectQuestionIds] = useState<string[]>([]);
-  const [wrongQuestionIds, setWrongQuestionIds] = useState<string[]>([]);
   const [answeredCurrent, setAnsweredCurrent] = useState(false);
   const [pendingFinalScore, setPendingFinalScore] = useState<number | null>(null);
   const [pendingFinalMistakes, setPendingFinalMistakes] = useState<MistakeRecord[] | null>(null);
@@ -39,8 +37,6 @@ export default function MockExamPage() {
     setCorrectCount(0);
     setMistakes([]);
     setAnsweredQuestionIds([]);
-    setCorrectQuestionIds([]);
-    setWrongQuestionIds([]);
     setAnsweredCurrent(false);
     setPendingFinalScore(null);
     setPendingFinalMistakes(null);
@@ -58,11 +54,6 @@ export default function MockExamPage() {
 
     if (!isCorrect && mistake) {
       setMistakes((list) => [...list, mistake]);
-      setWrongQuestionIds((list) => (list.includes(question.id) ? list : [...list, question.id]));
-    }
-
-    if (isCorrect) {
-      setCorrectQuestionIds((list) => (list.includes(question.id) ? list : [...list, question.id]));
     }
 
     setAnsweredQuestionIds((list) => [...list, question.id]);
@@ -122,69 +113,6 @@ export default function MockExamPage() {
     setAnsweredCurrent(answeredQuestionIds.includes(previousQuestion.id));
   };
 
-  const goToRandomRetryQuestion = () => {
-    const unansweredIndices = questionSet
-      .map((item, index) => (!answeredQuestionIds.includes(item.id) && !correctQuestionIds.includes(item.id) ? index : -1))
-      .filter((index) => index >= 0 && index !== currentIndex);
-
-    const failedIndices = questionSet
-      .map((item, index) => (wrongQuestionIds.includes(item.id) && !correctQuestionIds.includes(item.id) ? index : -1))
-      .filter((index) => index >= 0 && index !== currentIndex);
-
-    const candidates = unansweredIndices.length
-      ? unansweredIndices
-      : failedIndices.length
-        ? failedIndices
-        : questionSet
-            .map((item, index) => (!correctQuestionIds.includes(item.id) ? index : -1))
-            .filter((index) => index >= 0 && index !== currentIndex);
-
-    if (!candidates.length) {
-      return;
-    }
-
-    const pickedIndex = candidates[Math.floor(Math.random() * candidates.length)] ?? currentIndex;
-    const replacementQuestion = questionSet[pickedIndex];
-
-    if (!replacementQuestion) {
-      return;
-    }
-
-    // Keep question number fixed and replace only the current slot content.
-    setQuestionSet((current) => {
-      const next = [...current];
-      const currentQuestion = next[currentIndex];
-      next[currentIndex] = replacementQuestion;
-      if (currentQuestion) {
-        next[pickedIndex] = currentQuestion;
-      }
-      return next;
-    });
-
-    const replacementId = replacementQuestion.id;
-    const wasAnswered = answeredQuestionIds.includes(replacementId);
-
-    if (wasAnswered) {
-      setAnsweredQuestionIds((list) => list.filter((id) => id !== replacementId));
-
-      const wasCorrect = correctQuestionIds.includes(replacementId);
-      if (wasCorrect) {
-        setCorrectQuestionIds((list) => list.filter((id) => id !== replacementId));
-        setCorrectCount((value) => Math.max(0, value - 1));
-      }
-
-      setWrongQuestionIds((list) => list.filter((id) => id !== replacementId));
-      setMistakes((list) => list.filter((mistake) => mistake.questionId !== replacementId));
-
-      if (pendingFinalScore !== null) {
-        setPendingFinalScore(null);
-        setPendingFinalMistakes(null);
-      }
-    }
-
-    setAnsweredCurrent(false);
-  };
-
   return (
     <div className="page-shell">
       <NavigationMenu />
@@ -205,7 +133,6 @@ export default function MockExamPage() {
               key={question.id}
               question={question}
               onAnswered={handleAnswered}
-              onRetryWrong={goToRandomRetryQuestion}
             />
             {currentIndex > 0 || answeredCurrent ? (
               <div className="glass-card rounded-4xl p-5">
