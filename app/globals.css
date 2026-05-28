@@ -111,3 +111,14 @@ input {
   background: rgba(255, 255, 255, 0.85);
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
 }
+
+.evaluable-text {
+  font-weight: 900 !important;
+  color: #1e3a8a !important;
+  background: #dbeafe !important;
+  border-radius: 0.5rem;
+  padding: 0.08rem 0.4rem;
+  border: 1px solid #93c5fd;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}

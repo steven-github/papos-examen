@@ -15,8 +15,8 @@ export default function QuizHomePage() {
       <main className="content-wrap mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
         <ChildHeader
           eyebrow="Quizzes"
-          title="Pick a Topic Quiz"
-          subtitle="Choose one official exam topic and practice with instant feedback."
+          title="Elige un quiz por tema"
+          subtitle="Elige un tema y gana estrellas mientras practicas."
           rewardCount={progress.rewards}
         />
 

@@ -5,13 +5,13 @@ import { usePathname } from "next/navigation";
 import { BookOpen, Brain, ChartColumnBig, GraduationCap, House, PenSquare, RotateCcw } from "lucide-react";
 
 const items = [
-  { href: "/", label: "Home", icon: House },
-  { href: "/lessons", label: "Lessons", icon: BookOpen },
-  { href: "/practice", label: "Practice", icon: PenSquare },
+  { href: "/", label: "Inicio", icon: House },
+  { href: "/lessons", label: "Lecciones", icon: BookOpen },
+  { href: "/practice", label: "Practica", icon: PenSquare },
   { href: "/quiz", label: "Quiz", icon: Brain },
-  { href: "/mock-exam", label: "Mock Exam", icon: GraduationCap },
-  { href: "/review", label: "Review", icon: RotateCcw },
-  { href: "/progress", label: "Progress", icon: ChartColumnBig },
+  { href: "/mock-exam", label: "Simulacro", icon: GraduationCap },
+  { href: "/review", label: "Revision", icon: RotateCcw },
+  { href: "/progress", label: "Progreso", icon: ChartColumnBig },
 ];
 
 export function NavigationMenu() {

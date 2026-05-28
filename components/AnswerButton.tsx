@@ -21,7 +21,15 @@ export function AnswerButton({
       ? "border-rose-400 bg-rose-100 text-rose-800"
       : selected
         ? "border-blue-700 bg-blue-700 text-white"
-        : "border-white/60 bg-white/80 text-slate-700 hover:border-blue-200 hover:bg-blue-50";
+        : "border-white/60 bg-white/80 text-blue-800 hover:border-blue-200 hover:bg-blue-50";
+
+  const labelClass = correct
+    ? "rounded-md bg-emerald-200 px-2 py-0.5 font-black text-emerald-900"
+    : wrong
+      ? "rounded-md bg-rose-200 px-2 py-0.5 font-black text-rose-900"
+      : selected
+        ? "rounded-md bg-blue-100 px-2 py-0.5 font-black text-blue-900"
+        : "evaluable-text";
 
   return (
     <button
@@ -30,7 +38,7 @@ export function AnswerButton({
       disabled={disabled}
       className={`w-full rounded-[1.25rem] border px-4 py-3 text-left text-base font-bold shadow-sm transition ${stateClass} ${disabled ? "cursor-not-allowed opacity-70" : ""}`}
     >
-      {label}
+      <span className={labelClass}>{label}</span>
     </button>
   );
 }

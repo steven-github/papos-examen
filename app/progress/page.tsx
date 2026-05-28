@@ -14,36 +14,36 @@ export default function ProgressPage() {
       <NavigationMenu />
       <main className="content-wrap mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-6 sm:px-6">
         <ChildHeader
-          eyebrow="Progress"
-          title="Your Learning Dashboard"
-          subtitle="Track lesson completion, quiz scores, mock exams, and areas to improve."
+          eyebrow="Progreso"
+          title="Panel de aprendizaje"
+          subtitle="Mira tus logros, tus puntajes y que tema practicar mas."
           rewardCount={progress.rewards}
         />
 
         <section className="grid gap-4 md:grid-cols-2">
           <article className="glass-card rounded-4xl p-6">
-            <h2 className="section-title text-3xl text-slate-800">Overall progress</h2>
+            <h2 className="section-title text-3xl text-slate-800">Progreso general</h2>
             <div className="mt-4 space-y-4">
-              <ProgressBar value={overallProgress} label="Total mission" tone="blue" />
+              <ProgressBar value={overallProgress} label="Mision total" tone="blue" />
               <ProgressBar
                 value={Math.round((progress.completedLessons.length / lessons.length) * 100)}
-                label="Lesson completion"
+                label="Lecciones completadas"
                 tone="green"
               />
               <ProgressBar
                 value={progress.mockExamHistory.at(-1)?.score ?? 0}
-                label="Latest mock exam"
+                label="Ultimo simulacro"
                 tone="gold"
               />
             </div>
           </article>
 
           <article className="glass-card rounded-4xl p-6">
-            <h2 className="section-title text-3xl text-slate-800">Need more practice</h2>
+            <h2 className="section-title text-3xl text-slate-800">Temas para practicar mas</h2>
             <ul className="mt-4 space-y-2">
               {weakAreas.map((area) => (
                 <li key={area} className="rounded-2xl bg-white/90 px-4 py-3 text-sm font-bold text-slate-700 capitalize">
-                  {area}
+                  <span className="evaluable-text">{area}</span>
                 </li>
               ))}
             </ul>
@@ -51,12 +51,12 @@ export default function ProgressPage() {
         </section>
 
         <section className="glass-card rounded-4xl p-6">
-          <h2 className="section-title text-3xl text-slate-800">Topic bars</h2>
+          <h2 className="section-title text-3xl text-slate-800">Barras por tema</h2>
           <div className="mt-4 grid gap-3 md:grid-cols-2">
             {topicSummaries.map((topic) => (
               <div key={topic.id} className="rounded-3xl bg-white/90 p-4">
                 <h3 className="mb-2 text-sm font-black uppercase tracking-[0.2em] text-slate-500">
-                  {topic.id.replaceAll("-", " ")}
+                  <span className="evaluable-text">{topic.id.replaceAll("-", " ")}</span>
                 </h3>
                 <ProgressBar value={topic.quizBest} label="Quiz" tone="pink" />
               </div>
@@ -67,7 +67,7 @@ export default function ProgressPage() {
             onClick={resetProgress}
             className="mt-5 rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white"
           >
-            Reset local progress
+            Empezar de nuevo
           </button>
         </section>
       </main>

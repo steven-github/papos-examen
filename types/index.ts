@@ -31,6 +31,7 @@ export interface Lesson {
   color: string;
   goal: string;
   simpleExplanation: string;
+  evaluablePhrases: string[];
   audioText: string;
   sections: LessonSection[];
   examples: LessonExample[];
@@ -99,6 +100,7 @@ export type ExerciseQuestion =
 export interface QuizSet {
   id: LessonSlug;
   title: string;
+  evaluablePhrases: string[];
   emoji: string;
   description: string;
   questions: ExerciseQuestion[];

@@ -30,9 +30,9 @@ export default function GamesPage() {
       <NavigationMenu />
       <main className="content-wrap mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
         <ChildHeader
-          eyebrow="Mini Games"
-          title="Play and Learn"
-          subtitle="Choose a mini game, play a fast round, and collect stars while practicing grammar."
+          eyebrow="Mini juegos"
+          title="Juega y aprende"
+          subtitle="Elige un mini juego, juega una ronda rapida y gana estrellas."
           rewardCount={progress.rewards}
         />
 
@@ -59,10 +59,10 @@ export default function GamesPage() {
               onClick={playRound}
               className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white"
             >
-              <Play className="h-4 w-4" /> Play quick round
+              <Play className="h-4 w-4" /> Jugar ronda rapida
             </button>
             <div className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-black text-slate-700 ring-1 ring-slate-200">
-              <Dice6 className="h-4 w-4" /> Last score: {roundScore}
+              <Dice6 className="h-4 w-4" /> Puntaje reciente: {roundScore}
             </div>
           </div>
         </section>

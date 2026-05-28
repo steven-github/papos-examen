@@ -15,7 +15,7 @@ const nunito = Nunito({
 export const metadata: Metadata = {
   title: "Grammar Galaxy Mission",
   description:
-    "Interactive Next.js grammar practice for a 3rd grade exam with lessons, games, quizzes, and progress tracking.",
+    "Plataforma interactiva de repaso de Grammar para 3rd grade, con lecciones, quiz, simulacro y seguimiento.",
 };
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="es"
       className={`${baloo.variable} ${nunito.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>

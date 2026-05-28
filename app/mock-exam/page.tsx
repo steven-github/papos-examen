@@ -65,22 +65,22 @@ export default function MockExamPage() {
       <NavigationMenu />
       <main className="content-wrap mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-6 sm:px-6">
         <ChildHeader
-          eyebrow="Mock Exam"
-          title="Final Grammar Challenge"
-          subtitle="Mixed questions like your real test. Take your time and read each sentence carefully."
+          eyebrow="Simulacro"
+          title="Desafio final de Grammar"
+          subtitle="Reto final! Lee con calma y responde paso a paso."
           rewardCount={progress.rewards}
         />
 
         {!finished && question ? (
           <>
             <div className="glass-card rounded-4xl px-5 py-4 text-sm font-black text-slate-700">
-              Section question {currentIndex + 1} of {mockExamQuestions.length}
+              Pregunta {currentIndex + 1} de {mockExamQuestions.length}
             </div>
             <ExerciseCard key={question.id} question={question} onAnswered={handleAnswered} />
             {answeredCurrent && currentIndex < mockExamQuestions.length - 1 ? (
               <div className="glass-card rounded-4xl p-5">
                 <p className="text-sm font-bold text-slate-600">
-                  Lee la explicacion de arriba. Continua cuando ya la tengas clara.
+                  Lee la explicacion con calma. Avanza cuando ya la entiendas.
                 </p>
                 <button
                   type="button"
@@ -97,15 +97,15 @@ export default function MockExamPage() {
             score={score}
             correct={correctCount}
             total={mockExamQuestions.length}
-            title={score >= 85 ? "Excellent mock exam!" : "Good run. Review and retry!"}
+            title={score >= 85 ? "Excelente simulacro!" : "Buen intento! Revisa y vuelve a jugar."}
             onRetry={reset}
           />
         )}
 
         <CelebrationModal
           open={showCelebration}
-          title="Mock Exam Win!"
-          message="Fantastic score! You are getting ready for the real exam."
+          title="Gran resultado"
+          message="Fantastico! Estas cada vez mas listo para el examen."
           onClose={() => setShowCelebration(false)}
         />
       </main>

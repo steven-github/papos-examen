@@ -58,7 +58,7 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
     }
 
     return {
-      title: isCorrect ? "Great job!" : "Nice try!",
+      title: isCorrect ? "Muy bien!" : "Buen intento!",
       tone: isCorrect ? "text-emerald-700" : "text-rose-700",
     };
   }, [isCorrect, submitted]);
@@ -76,7 +76,7 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
       questionId: question.id,
       topic: question.topic,
       prompt: question.prompt,
-      selectedAnswer: answerText || "(empty)",
+      selectedAnswer: answerText || "(vacio)",
       correctAnswer: getCorrectAnswerLabel(question),
       explanation: question.explanation,
       type: question.type,
@@ -124,7 +124,7 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
             value={fillValue}
             onChange={(event) => setFillValue(event.target.value)}
             disabled={disabled || submitted}
-            placeholder={q.placeholder ?? "Type your answer"}
+            placeholder={q.placeholder ?? "Escribe tu respuesta"}
             className="w-full rounded-3xl border border-white/80 bg-white px-4 py-3 text-base font-bold text-slate-700 outline-none ring-blue-200 focus:ring"
           />
           <button
@@ -137,7 +137,7 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
             }}
             className="rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Check answer
+            Revisar respuesta
           </button>
         </div>
       );
@@ -148,7 +148,9 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
 
       return (
         <div className="space-y-3">
-          <p className="rounded-3xl bg-white/85 px-4 py-3 text-base font-bold text-slate-700">{q.statement}</p>
+          <p className="rounded-3xl bg-white/85 px-4 py-3 text-base font-bold text-slate-700">
+            <span className="evaluable-text">{q.statement}</span>
+          </p>
           <div className="grid gap-3 sm:grid-cols-2">
             {["true", "false"].map((choice) => (
               <AnswerButton
@@ -226,7 +228,7 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
             onDrop={(event) => onDrop(event, "pool")}
             className="rounded-3xl bg-white/85 p-3 text-sm font-bold text-slate-700"
           >
-            <p className="mb-2 text-xs uppercase tracking-[0.2em] text-slate-500">Word bank (drag or tap)</p>
+            <p className="mb-2 text-xs uppercase tracking-[0.2em] text-slate-500">Banco de palabras (arrastra o toca)</p>
             <div className="flex min-h-12 flex-wrap gap-2">
               {reorderPool.map((token, index) => (
                 <button
@@ -248,7 +250,7 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
             onDrop={(event) => onDrop(event, "built")}
             className="rounded-3xl border border-dashed border-blue-200 bg-white p-3"
           >
-            <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-blue-700">Drop here to build sentence</p>
+            <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-blue-700">Suelta aqui para formar la oracion</p>
             <div className="flex min-h-12 flex-wrap gap-2">
               {reorderBuilt.length ? (
                 reorderBuilt.map((token, index) => (
@@ -264,7 +266,7 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
                   </button>
                 ))
               ) : (
-                <p className="text-sm font-bold text-slate-400">Drop tokens here</p>
+                <p className="text-sm font-bold text-slate-400">Suelta palabras aqui</p>
               )}
             </div>
           </div>
@@ -279,7 +281,7 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
             }}
             className="rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Check order
+            Revisar orden
           </button>
         </div>
       );
@@ -291,7 +293,9 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
       <div className="space-y-3">
         {q.pairs.map((pair) => (
           <label key={`${q.id}-${pair.left}`} className="block rounded-3xl bg-white/85 p-3">
-            <p className="mb-2 text-sm font-black text-slate-700">{pair.left}</p>
+            <p className="mb-2 text-sm font-black text-slate-700">
+              <span className="evaluable-text">{pair.left}</span>
+            </p>
             <select
               value={matchAnswers[pair.left] ?? ""}
               disabled={disabled || submitted}
@@ -301,9 +305,9 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
                   [pair.left]: event.target.value,
                 }))
               }
-              className="w-full rounded-2xl border border-blue-100 bg-white px-3 py-2 font-bold text-slate-700"
+              className="w-full rounded-2xl border border-blue-100 bg-white px-3 py-2 font-black text-blue-800"
             >
-              <option value="">Choose one</option>
+              <option value="">Elige una opcion</option>
               {q.options.map((option) => (
                 <option key={`${pair.left}-${option}`} value={option}>
                   {option}
@@ -323,7 +327,7 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
           }}
           className="rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Check match
+          Revisar relacion
         </button>
       </div>
     );
@@ -334,8 +338,14 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
       <div className="mb-3 flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-blue-700">
         <CheckCircle2 className="h-4 w-4" /> {question.type.replace("-", " ")}
       </div>
-      <h3 className="section-title text-2xl text-slate-800">{question.prompt}</h3>
-      {question.hint ? <p className="mt-2 text-sm font-bold text-slate-500">Hint: {question.hint}</p> : null}
+      <h3 className="section-title text-2xl text-slate-800">
+        <span className="evaluable-text">{question.prompt}</span>
+      </h3>
+      {question.hint ? (
+        <p className="mt-2 text-sm font-bold text-slate-500">
+          Pista: <span className="evaluable-text">{question.hint}</span>
+        </p>
+      ) : null}
 
       <div className="mt-4">{renderQuestionBody()}</div>
 
@@ -344,7 +354,7 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
           <p className={`section-title text-2xl ${feedback.tone}`}>{feedback.title}</p>
           <p className="mt-2 text-sm font-bold text-slate-600">{question.explanation}</p>
           <p className="mt-2 inline-flex items-center gap-1 text-xs font-black uppercase tracking-[0.16em] text-slate-500">
-            <Lightbulb className="h-4 w-4" /> Why: {question.explanation}
+            <Lightbulb className="h-4 w-4" /> Explicacion: {question.explanation}
           </p>
         </div>
       ) : null}

@@ -39,7 +39,7 @@ export function CelebrationModal({ open, title, message, onClose }: CelebrationM
               onClick={onClose}
               className="mt-6 rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white"
             >
-              Keep going
+              Continuar
             </button>
           </motion.div>
         </motion.div>

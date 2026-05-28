@@ -17,7 +17,7 @@ export function GameCard({ game, highScore, active, onClick }: GameCardProps) {
       <div className="mb-2 text-4xl">{game.emoji}</div>
       <h3 className="section-title text-2xl text-slate-800">{game.title}</h3>
       <p className="mt-2 text-sm text-slate-600">{game.description}</p>
-      <p className="mt-3 text-sm font-black text-blue-700">High score: {highScore ?? 0}</p>
+      <p className="mt-3 text-sm font-black text-blue-700">Mejor puntaje: {highScore ?? 0}</p>
     </button>
   );
 }
