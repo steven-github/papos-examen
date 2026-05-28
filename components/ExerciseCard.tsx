@@ -75,7 +75,7 @@ function buildFillBlankHint(question: FillBlankQuestion): string {
   } else if (question.topic === "can-cant") {
     ruleHint = "Despues de can/can't, usa el verbo base o la respuesta corta correcta (can).";
   } else if (question.topic === "possessive-adjectives") {
-    ruleHint = "Completa con el possessive adjective correcto segun el dueno (my/your/his/her/its/our/their).";
+    ruleHint = "Completa con el possessive adjective correcto segun el dueño (my/your/his/her/its/our/their).";
   }
 
   // Extra guidance from wording patterns in the prompt.
@@ -139,6 +139,20 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
       explanation: question.explanation,
       type: question.type,
     });
+  };
+
+  const resetQuestionAttempt = () => {
+    setSelectedChoice("");
+    setFillValue("");
+    setShowFillHint(false);
+    setMatchAnswers({});
+    setSubmitted(false);
+    setIsCorrect(false);
+
+    if (question.type === "reorder") {
+      setReorderPool([...question.tokens]);
+      setReorderBuilt([]);
+    }
   };
 
   const renderQuestionBody = () => {
@@ -428,6 +442,15 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
           <p className="mt-2 inline-flex items-center gap-1 text-xs font-black uppercase tracking-[0.16em] text-slate-500">
             <Lightbulb className="h-4 w-4" /> Explicacion: {question.explanation}
           </p>
+          {!isCorrect && !disabled ? (
+            <button
+              type="button"
+              onClick={resetQuestionAttempt}
+              className="mt-3 rounded-full bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-700 ring-1 ring-slate-200"
+            >
+              REINTENTAR
+            </button>
+          ) : null}
         </div>
       ) : null}
     </article>

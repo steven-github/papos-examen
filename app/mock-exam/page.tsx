@@ -17,6 +17,8 @@ export default function MockExamPage() {
   const [mistakes, setMistakes] = useState<MistakeRecord[]>([]);
   const [answeredQuestionIds, setAnsweredQuestionIds] = useState<string[]>([]);
   const [answeredCurrent, setAnsweredCurrent] = useState(false);
+  const [pendingFinalScore, setPendingFinalScore] = useState<number | null>(null);
+  const [pendingFinalMistakes, setPendingFinalMistakes] = useState<MistakeRecord[] | null>(null);
   const [finished, setFinished] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
 
@@ -30,6 +32,8 @@ export default function MockExamPage() {
     setMistakes([]);
     setAnsweredQuestionIds([]);
     setAnsweredCurrent(false);
+    setPendingFinalScore(null);
+    setPendingFinalMistakes(null);
     setFinished(false);
   };
 
@@ -54,12 +58,21 @@ export default function MockExamPage() {
     if (isLast) {
       const allMistakes = isCorrect || !mistake ? mistakes : [...mistakes, mistake];
       const nextScore = Math.round((nextCorrect / mockExamQuestions.length) * 100);
-      recordMockExam(nextScore, allMistakes);
-      setFinished(true);
-      if (nextScore >= 75) {
-        setShowCelebration(true);
-      }
+      setPendingFinalScore(nextScore);
+      setPendingFinalMistakes(allMistakes);
       return;
+    }
+  };
+
+  const finishMockExam = () => {
+    const finalScore = pendingFinalScore ?? score;
+    const finalMistakes = pendingFinalMistakes ?? mistakes;
+
+    recordMockExam(finalScore, finalMistakes);
+    setFinished(true);
+
+    if (finalScore >= 75) {
+      setShowCelebration(true);
     }
   };
 
@@ -97,11 +110,16 @@ export default function MockExamPage() {
               Pregunta {currentIndex + 1} de {mockExamQuestions.length}
             </div>
             <ExerciseCard key={question.id} question={question} onAnswered={handleAnswered} />
-            {currentIndex > 0 || (answeredCurrent && currentIndex < mockExamQuestions.length - 1) ? (
+            {currentIndex > 0 || answeredCurrent ? (
               <div className="glass-card rounded-4xl p-5">
                 {answeredCurrent && currentIndex < mockExamQuestions.length - 1 ? (
                   <p className="text-sm font-bold text-slate-600">
                     Lee la explicacion con calma. Avanza cuando ya la entiendas.
+                  </p>
+                ) : null}
+                {answeredCurrent && currentIndex >= mockExamQuestions.length - 1 ? (
+                  <p className="text-sm font-bold text-slate-600">
+                    Ya respondiste la ultima pregunta. Lee la explicacion y luego presiona Ver resultado.
                   </p>
                 ) : null}
                 <div className="mt-3 flex flex-wrap gap-3">
@@ -121,6 +139,15 @@ export default function MockExamPage() {
                       className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white"
                     >
                       Avanzar a la siguiente pregunta
+                    </button>
+                  ) : null}
+                  {answeredCurrent && currentIndex >= mockExamQuestions.length - 1 ? (
+                    <button
+                      type="button"
+                      onClick={finishMockExam}
+                      className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white"
+                    >
+                      Ver resultado
                     </button>
                   ) : null}
                 </div>

@@ -106,7 +106,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
         id: "me-12",
         topic: "possessive-adjectives",
         type: "match",
-        prompt: "Relaciona el dueno con el possessive adjective.",
+        prompt: "Relaciona el dueño con el possessive adjective.",
         pairs: [
             { left: "he", right: "his" },
             { left: "we", right: "our" },

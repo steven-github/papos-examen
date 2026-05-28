@@ -24,6 +24,8 @@ export default function TopicPracticePage() {
   const [mistakes, setMistakes] = useState<MistakeRecord[]>([]);
   const [answeredQuestionIds, setAnsweredQuestionIds] = useState<string[]>([]);
   const [answeredCurrent, setAnsweredCurrent] = useState(false);
+  const [pendingFinalScore, setPendingFinalScore] = useState<number | null>(null);
+  const [pendingFinalMistakes, setPendingFinalMistakes] = useState<MistakeRecord[] | null>(null);
   const [finished, setFinished] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
 
@@ -56,6 +58,8 @@ export default function TopicPracticePage() {
     setMistakes([]);
     setAnsweredQuestionIds([]);
     setAnsweredCurrent(false);
+    setPendingFinalScore(null);
+    setPendingFinalMistakes(null);
     setFinished(false);
   };
 
@@ -80,11 +84,21 @@ export default function TopicPracticePage() {
     if (isLast) {
       const allMistakes = isCorrect || !mistake ? mistakes : [...mistakes, mistake];
       const nextScore = Math.round((nextCorrect / questions.length) * 100);
-      recordPractice(topic, nextScore, allMistakes);
-      setFinished(true);
-      if (nextScore >= 70) {
-        setShowCelebration(true);
-      }
+      setPendingFinalScore(nextScore);
+      setPendingFinalMistakes(allMistakes);
+      return;
+    }
+  };
+
+  const finishPractice = () => {
+    const finalScore = pendingFinalScore ?? score;
+    const finalMistakes = pendingFinalMistakes ?? mistakes;
+
+    recordPractice(topic, finalScore, finalMistakes);
+    setFinished(true);
+
+    if (finalScore >= 70) {
+      setShowCelebration(true);
     }
   };
 
@@ -122,11 +136,16 @@ export default function TopicPracticePage() {
               Pregunta {currentIndex + 1} de {questions.length}
             </div>
             <ExerciseCard key={question.id} question={question} onAnswered={handleAnswered} />
-            {currentIndex > 0 || (answeredCurrent && currentIndex < questions.length - 1) ? (
+            {currentIndex > 0 || answeredCurrent ? (
               <div className="glass-card rounded-4xl p-5">
                 {answeredCurrent && currentIndex < questions.length - 1 ? (
                   <p className="text-sm font-bold text-slate-600">
                     Mira la explicacion y avanza cuando ya la entiendas.
+                  </p>
+                ) : null}
+                {answeredCurrent && currentIndex >= questions.length - 1 ? (
+                  <p className="text-sm font-bold text-slate-600">
+                    Ya respondiste la ultima pregunta. Lee la explicacion y luego presiona Ver resultado.
                   </p>
                 ) : null}
                 <div className="mt-3 flex flex-wrap gap-3">
@@ -146,6 +165,15 @@ export default function TopicPracticePage() {
                       className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white"
                     >
                       Avanzar a la siguiente pregunta
+                    </button>
+                  ) : null}
+                  {answeredCurrent && currentIndex >= questions.length - 1 ? (
+                    <button
+                      type="button"
+                      onClick={finishPractice}
+                      className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white"
+                    >
+                      Ver resultado
                     </button>
                   ) : null}
                 </div>

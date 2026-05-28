@@ -34,7 +34,7 @@ export function loadProgress(): AppProgress {
 
     const parsed = JSON.parse(raw) as Partial<AppProgress>;
 
-    return {
+    const baseProgress = {
       ...initialProgress,
       ...parsed,
       completedLessons: parsed.completedLessons ?? [],
@@ -47,6 +47,27 @@ export function loadProgress(): AppProgress {
       mockExamHistory: parsed.mockExamHistory ?? [],
       mistakes: parsed.mistakes ?? [],
       rewards: parsed.rewards ?? 0,
+    };
+
+    const unlocked = new Set<LessonSlug>(baseProgress.unlockedLessons);
+
+    lessonOrder.forEach((lesson, index) => {
+      const hasCompleted = baseProgress.completedLessons.includes(lesson);
+      const hasPractice = (baseProgress.practiceScores[lesson]?.attempts ?? 0) > 0;
+      const hasQuiz = (baseProgress.quizScores[lesson]?.attempts ?? 0) > 0;
+
+      if (hasCompleted || hasPractice || hasQuiz) {
+        unlocked.add(lesson);
+        const nextLesson = lessonOrder[index + 1];
+        if (nextLesson) {
+          unlocked.add(nextLesson);
+        }
+      }
+    });
+
+    return {
+      ...baseProgress,
+      unlockedLessons: Array.from(unlocked),
     };
   } catch {
     return initialProgress;

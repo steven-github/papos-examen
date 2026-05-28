@@ -54,15 +54,31 @@ export function useProgress() {
   };
 
   const recordPractice = (topic: string, score: number, mistakes: MistakeRecord[]) => {
-    persist((current) => ({
-      ...current,
-      practiceScores: {
+    persist((current) => {
+      const practiceScores = {
         ...current.practiceScores,
         [topic]: updateScoreRecord(current.practiceScores[topic], score),
-      },
-      mistakes: mergeMistakes(current.mistakes, mistakes),
-      rewards: current.rewards + Math.max(3, Math.round(score / 12)),
-    }));
+      };
+
+      let unlockedLessons = current.unlockedLessons;
+      const lessonTopic = topic as LessonSlug;
+
+      if (lessonOrder.includes(lessonTopic)) {
+        const currentIndex = lessonOrder.indexOf(lessonTopic);
+        const nextLesson = lessonOrder[currentIndex + 1];
+        unlockedLessons = Array.from(
+          new Set([...current.unlockedLessons, lessonTopic, ...(nextLesson ? [nextLesson] : [])]),
+        ) as LessonSlug[];
+      }
+
+      return {
+        ...current,
+        practiceScores,
+        unlockedLessons,
+        mistakes: mergeMistakes(current.mistakes, mistakes),
+        rewards: current.rewards + Math.max(3, Math.round(score / 12)),
+      };
+    });
   };
 
   const recordQuiz = (topic: string, score: number, mistakes: MistakeRecord[]) => {

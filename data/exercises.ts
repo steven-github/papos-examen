@@ -81,6 +81,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "She is ___ a picture.",
     acceptableAnswers: ["drawing"],
+    hint: "Aqui se espera el verbo draw en -ing: she is drawing a picture.",
     explanation: "La accion que ocurre ahora es drawing y lleva -ing.",
   },
   {

@@ -39,9 +39,9 @@ export const lessons: Lesson[] = [
         body: "Un possessive adjective va antes del sustantivo. Decimos my computer, no computer my.",
       },
       {
-        title: "Relaciona con el dueno",
+        title: "Relaciona con el dueño",
         emoji: "👀",
-        body: "I va con my, he con his y they con their. El dueno te indica la palabra correcta.",
+        body: "I va con my, he con his y they con their. El dueño te indica la palabra correcta.",
       },
       {
         title: "Observa el objeto",
