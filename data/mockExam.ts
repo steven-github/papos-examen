@@ -3,12 +3,12 @@ import type { ExerciseQuestion } from "@/types";
 export const mockExamQuestions: ExerciseQuestion[] = [
   {
     id: "me-1",
-    topic: "subject-pronouns",
+    topic: "can-cant",
     type: "multiple-choice",
-    prompt: "The girl is in the classroom. ___ is listening.",
-    options: ["He", "She", "It"],
-    correctAnswer: "She",
-    explanation: "One girl uses she.",
+    prompt: "Choose the correct question.",
+    options: ["Can she swim?", "She can swim?", "Can she swims?"],
+    correctAnswer: "Can she swim?",
+    explanation: "Las preguntas con can usan: Can + sujeto + verbo en forma base.",
   },
   {
     id: "me-2",
@@ -16,7 +16,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "I have a CD player. It is ___ CD player.",
     acceptableAnswers: ["my"],
-    explanation: "I goes with my.",
+    explanation: "Con I usamos my.",
   },
   {
     id: "me-3",
@@ -25,7 +25,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Which sentence is negative?",
     options: ["He can dive.", "He can't dive.", "Can he dive?"],
     correctAnswer: "He can't dive.",
-    explanation: "Can't makes the sentence negative.",
+    explanation: "Can't convierte la oración en negativa.",
   },
   {
     id: "me-4",
@@ -34,7 +34,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Choose the correct sentence.",
     options: ["She is eating.", "She eating.", "She can eating."],
     correctAnswer: "She is eating.",
-    explanation: "The correct form uses is plus verb-ing.",
+    explanation: "La forma correcta usa is + verbo con ing.",
   },
   {
     id: "me-5",
@@ -42,16 +42,16 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "Can you turn off the TV, please? Yes, I ___.",
     acceptableAnswers: ["can"],
-    explanation: "The short answer is Yes, I can.",
+    explanation: "La respuesta corta correcta es Yes, I can.",
   },
   {
     id: "me-6",
-    topic: "subject-pronouns",
+    topic: "present-progressive",
     type: "true-false",
     prompt: "Read the sentence and decide.",
-    statement: "In 'We are ready', the subject pronoun is we.",
+    statement: "'We are writing now.' is present progressive.",
     correctAnswer: "true",
-    explanation: "The subject pronoun is we.",
+    explanation: "El present progressive usa are + verbo con ing.",
   },
   {
     id: "me-7",
@@ -60,7 +60,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "The children have a school project. This is ___ project.",
     options: ["their", "his", "her"],
     correctAnswer: "their",
-    explanation: "Children means more than one, so their is correct.",
+    explanation: "Children significa más de una persona, por eso usamos their.",
   },
   {
     id: "me-8",
@@ -68,7 +68,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "We are ___ for the exam.",
     acceptableAnswers: ["studying"],
-    explanation: "The action happening now is studying.",
+    explanation: "La acción que ocurre ahora es studying.",
   },
   {
     id: "me-9",
@@ -77,7 +77,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Put the words in order.",
     tokens: ["Can", "I", "the", "use", "computer"],
     correctOrder: ["Can", "I", "use", "the", "computer"],
-    explanation: "Questions with can start with Can and then the subject.",
+    explanation: "Las preguntas con can empiezan con Can y luego el sujeto.",
   },
   {
     id: "me-10",
@@ -86,16 +86,16 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Read the sentence and decide.",
     statement: "'They are running.' is happening now.",
     correctAnswer: "true",
-    explanation: "Present progressive describes an action happening now.",
+    explanation: "El present progressive describe una acción que está pasando ahora.",
   },
   {
     id: "me-11",
-    topic: "subject-pronouns",
+    topic: "possessive-adjectives",
     type: "multiple-choice",
-    prompt: "The camera is new. ___ is on the table.",
-    options: ["It", "She", "We"],
-    correctAnswer: "It",
-    explanation: "A camera is one thing, so we use it.",
+    prompt: "This is Ana's notebook. It is ___ notebook.",
+    options: ["my", "her", "their"],
+    correctAnswer: "her",
+    explanation: "Ana es una niña, por eso usamos her.",
   },
   {
     id: "me-12",
@@ -108,6 +108,6 @@ export const mockExamQuestions: ExerciseQuestion[] = [
       { left: "you", right: "your" },
     ],
     options: ["his", "our", "your", "their"],
-    explanation: "He-his, we-our, and you-your are correct matches.",
+    explanation: "Las parejas correctas son he-his, we-our y you-your.",
   },
 ];

@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Brain, ChartColumnBig, Gamepad2, GraduationCap, House, PenSquare, RotateCcw } from "lucide-react";
+import { BookOpen, Brain, ChartColumnBig, GraduationCap, House, PenSquare, RotateCcw } from "lucide-react";
 
 const items = [
   { href: "/", label: "Home", icon: House },
   { href: "/lessons", label: "Lessons", icon: BookOpen },
   { href: "/practice", label: "Practice", icon: PenSquare },
-  { href: "/games", label: "Games", icon: Gamepad2 },
   { href: "/quiz", label: "Quiz", icon: Brain },
   { href: "/mock-exam", label: "Mock Exam", icon: GraduationCap },
   { href: "/review", label: "Review", icon: RotateCcw },

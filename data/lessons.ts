@@ -1,79 +1,12 @@
 import type { Lesson } from "@/types";
 
 export const lessonOrder: Lesson["slug"][] = [
-  "subject-pronouns",
   "possessive-adjectives",
   "can-cant",
   "present-progressive",
 ];
 
 export const lessons: Lesson[] = [
-  {
-    slug: "subject-pronouns",
-    title: "Subject Pronouns",
-    emoji: "🧒",
-    color: "from-sky-200 via-cyan-100 to-white",
-    goal: "Use the right little word for a person, animal, or thing.",
-    simpleExplanation:
-      "Subject pronouns are short words we use instead of names. They help our sentences sound smooth and easy.",
-    audioText:
-      "Subject pronouns are I, you, he, she, it, we, and they. They go at the start of a sentence.",
-    sections: [
-      {
-        title: "What is a pronoun?",
-        emoji: "✨",
-        body: "A pronoun takes the place of a name. Instead of saying Maria every time, we can say she.",
-      },
-      {
-        title: "One or many",
-        emoji: "🔍",
-        body: "He, she, and it talk about one. We and they talk about more than one.",
-      },
-      {
-        title: "Use the clue",
-        emoji: "💡",
-        body: "Think about who is doing the action. Is it me, you, one boy, one girl, one thing, or many people?",
-      },
-    ],
-    examples: [
-      {
-        sentence: "I am ready for my exam.",
-        highlight: "I",
-        note: "Use I when you talk about yourself.",
-      },
-      {
-        sentence: "She is reading a green book.",
-        highlight: "She",
-        note: "Use she for one girl or woman.",
-      },
-      {
-        sentence: "They are carrying a school project.",
-        highlight: "They",
-        note: "Use they for more than one person or thing.",
-      },
-    ],
-    quickChecks: [
-      {
-        prompt: "Maria is drawing. ___ is happy.",
-        choices: ["He", "She", "They"],
-        correctAnswer: "She",
-        explanation: "Maria is one girl, so we say she.",
-      },
-      {
-        prompt: "Tom and Sam are swimming. ___ are in the pool.",
-        choices: ["He", "They", "It"],
-        correctAnswer: "They",
-        explanation: "Tom and Sam means more than one, so we use they.",
-      },
-      {
-        prompt: "The camera is on the desk. ___ is black.",
-        choices: ["It", "We", "You"],
-        correctAnswer: "It",
-        explanation: "A camera is one thing, so we use it.",
-      },
-    ],
-    vocabulary: ["I", "you", "he", "she", "it", "we", "they"],
-  },
   {
     slug: "possessive-adjectives",
     title: "Possessive Adjectives",

@@ -1,6 +1,5 @@
 export type LessonSlug =
-  | "subject-pronouns"
-  | "possessive-adjectives"
+  "possessive-adjectives"
   | "can-cant"
   | "present-progressive";
 

@@ -3,6 +3,7 @@
 import { ChildHeader } from "@/components/ChildHeader";
 import { NavigationMenu } from "@/components/NavigationMenu";
 import { ProgressBar } from "@/components/ProgressBar";
+import { lessons } from "@/data/lessons";
 import { useProgress } from "@/hooks/useProgress";
 
 export default function ProgressPage() {
@@ -25,7 +26,7 @@ export default function ProgressPage() {
             <div className="mt-4 space-y-4">
               <ProgressBar value={overallProgress} label="Total mission" tone="blue" />
               <ProgressBar
-                value={Math.round((progress.completedLessons.length / 4) * 100)}
+                value={Math.round((progress.completedLessons.length / lessons.length) * 100)}
                 label="Lesson completion"
                 tone="green"
               />

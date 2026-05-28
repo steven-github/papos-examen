@@ -2,58 +2,6 @@ import type { QuizSet } from "@/types";
 
 export const quizzes: QuizSet[] = [
   {
-    id: "subject-pronouns",
-    title: "Pronoun Quiz",
-    emoji: "🧒",
-    description: "Pick the best subject pronoun for each sentence.",
-    questions: [
-      {
-        id: "qp-sp-1",
-        topic: "subject-pronouns",
-        type: "multiple-choice",
-        prompt: "Luca is my friend. ___ is funny.",
-        options: ["He", "They", "It"],
-        correctAnswer: "He",
-        explanation: "Luca is one boy, so we use he.",
-      },
-      {
-        id: "qp-sp-2",
-        topic: "subject-pronouns",
-        type: "fill-blank",
-        prompt: "My sister and I are eating. ___ are hungry.",
-        acceptableAnswers: ["we"],
-        explanation: "My sister and I means we.",
-      },
-      {
-        id: "qp-sp-3",
-        topic: "subject-pronouns",
-        type: "multiple-choice",
-        prompt: "The MP3 player is old. ___ is still working.",
-        options: ["It", "He", "We"],
-        correctAnswer: "It",
-        explanation: "A player is one thing, so we use it.",
-      },
-      {
-        id: "qp-sp-4",
-        topic: "subject-pronouns",
-        type: "true-false",
-        prompt: "Read the sentence and decide.",
-        statement: "In 'You are my classmate', the pronoun is you.",
-        correctAnswer: "true",
-        explanation: "The subject pronoun in the sentence is you.",
-      },
-      {
-        id: "qp-sp-5",
-        topic: "subject-pronouns",
-        type: "multiple-choice",
-        prompt: "Emma and Rose are reading. ___ are quiet.",
-        options: ["She", "They", "We"],
-        correctAnswer: "They",
-        explanation: "More than one girl means they.",
-      },
-    ],
-  },
-  {
     id: "possessive-adjectives",
     title: "Possessive Quiz",
     emoji: "🎒",

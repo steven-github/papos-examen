@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, Brain, Star } from "lucide-react";
+import { ArrowRight, BookOpen, Brain } from "lucide-react";
 
 import { ChildHeader } from "@/components/ChildHeader";
 import { NavigationMenu } from "@/components/NavigationMenu";
@@ -20,7 +20,7 @@ export default function HomePage() {
         <ChildHeader
           eyebrow="Love at Work International Christian School"
           title="Grammar Galaxy Mission"
-          subtitle="Hi champ! Let us learn, play, and get ready for Grammar Evaluation #2 with fun mini steps."
+          subtitle="Hi champ! Study only the official topics for Grammar Evaluation #2 with clear mini steps."
           rewardCount={progress.rewards}
         />
 
@@ -65,16 +65,18 @@ export default function HomePage() {
             </ul>
             <div className="mt-5 rounded-3xl bg-white/90 p-4">
               <p className="text-sm font-black text-slate-600">Book references:</p>
-              <p className="mt-2 text-sm font-bold text-slate-600">
-                Grammar Friends pages 16 to 19 and 22 to 24, plus Family and Friends pages 24, 25, and 33.
-              </p>
+              <div className="mt-2 space-y-1 text-sm font-bold text-slate-600">
+                <p>Can / Can&apos;t: Grammar Friends 16, 17, 18 | Family and Friends 24, 25</p>
+                <p>Possessive Adjectives: Grammar Friends 19 | Family and Friends 25</p>
+                <p>Present Progressive: Grammar Friends 22, 23, 24 | Family and Friends 33</p>
+              </div>
             </div>
           </article>
         </section>
 
         <section>
           <h2 className="section-title mb-4 text-3xl text-slate-800">Topic quick view</h2>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {topicSummaries.map((topic, index) => (
               <motion.article
                 key={topic.id}
@@ -100,7 +102,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="grid gap-4 md:grid-cols-3">
+        <section className="grid gap-4 md:grid-cols-2">
           <Link href="/practice" className="glass-card rounded-4xl p-5 transition hover:-translate-y-1">
             <div className="mb-3 inline-flex rounded-2xl bg-blue-100 p-3">
               <BookOpen className="h-6 w-6 text-blue-700" />
@@ -114,13 +116,6 @@ export default function HomePage() {
             </div>
             <h3 className="section-title text-2xl text-slate-800">Quiz Time</h3>
             <p className="mt-2 text-sm font-bold text-slate-600">Earn stars and unlock rewards with each quiz.</p>
-          </Link>
-          <Link href="/games" className="glass-card rounded-4xl p-5 transition hover:-translate-y-1">
-            <div className="mb-3 inline-flex rounded-2xl bg-amber-100 p-3">
-              <Star className="h-6 w-6 text-amber-700" />
-            </div>
-            <h3 className="section-title text-2xl text-slate-800">Mini Games</h3>
-            <p className="mt-2 text-sm font-bold text-slate-600">Play quick games and keep grammar fresh.</p>
           </Link>
         </section>
       </main>

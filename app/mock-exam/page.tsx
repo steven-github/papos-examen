@@ -15,6 +15,7 @@ export default function MockExamPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [mistakes, setMistakes] = useState<MistakeRecord[]>([]);
+  const [answeredCurrent, setAnsweredCurrent] = useState(false);
   const [finished, setFinished] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
 
@@ -26,10 +27,12 @@ export default function MockExamPage() {
     setCurrentIndex(0);
     setCorrectCount(0);
     setMistakes([]);
+    setAnsweredCurrent(false);
     setFinished(false);
   };
 
   const handleAnswered = (isCorrect: boolean, mistake?: MistakeRecord) => {
+    setAnsweredCurrent(true);
     const nextCorrect = correctCount + (isCorrect ? 1 : 0);
 
     if (!isCorrect && mistake) {
@@ -50,10 +53,11 @@ export default function MockExamPage() {
       }
       return;
     }
+  };
 
-    setTimeout(() => {
-      setCurrentIndex((value) => value + 1);
-    }, 360);
+  const goToNextQuestion = () => {
+    setCurrentIndex((value) => value + 1);
+    setAnsweredCurrent(false);
   };
 
   return (
@@ -73,6 +77,20 @@ export default function MockExamPage() {
               Section question {currentIndex + 1} of {mockExamQuestions.length}
             </div>
             <ExerciseCard key={question.id} question={question} onAnswered={handleAnswered} />
+            {answeredCurrent && currentIndex < mockExamQuestions.length - 1 ? (
+              <div className="glass-card rounded-4xl p-5">
+                <p className="text-sm font-bold text-slate-600">
+                  Lee la explicacion de arriba. Continua cuando ya la tengas clara.
+                </p>
+                <button
+                  type="button"
+                  onClick={goToNextQuestion}
+                  className="mt-3 inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white"
+                >
+                  Avanzar a la siguiente pregunta
+                </button>
+              </div>
+            ) : null}
           </>
         ) : (
           <ResultSummary

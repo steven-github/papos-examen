@@ -16,11 +16,11 @@ export default function QuizHomePage() {
         <ChildHeader
           eyebrow="Quizzes"
           title="Pick a Topic Quiz"
-          subtitle="Each quiz gives stars, instant feedback, and clear corrections."
+          subtitle="Choose one official exam topic and practice with instant feedback."
           rewardCount={progress.rewards}
         />
 
-        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {quizzes.map((quiz) => (
             <QuizCard key={quiz.id} quiz={quiz} bestScore={progress.quizScores[quiz.id]} />
           ))}
