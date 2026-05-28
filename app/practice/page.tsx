@@ -1,118 +1,83 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
-import { CelebrationModal } from "@/components/CelebrationModal";
 import { ChildHeader } from "@/components/ChildHeader";
-import { ExerciseCard } from "@/components/ExerciseCard";
+import { HighlightedEvaluableText } from "@/components/HighlightedEvaluableText";
 import { NavigationMenu } from "@/components/NavigationMenu";
-import { ResultSummary } from "@/components/ResultSummary";
-import { practiceExercises } from "@/data/exercises";
+import { lessonMap, lessons } from "@/data/lessons";
 import { useProgress } from "@/hooks/useProgress";
-import type { MistakeRecord } from "@/types";
 
 export default function PracticePage() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [correctCount, setCorrectCount] = useState(0);
-  const [mistakes, setMistakes] = useState<MistakeRecord[]>([]);
-  const [answeredCurrent, setAnsweredCurrent] = useState(false);
-  const [finished, setFinished] = useState(false);
-  const [showCelebration, setShowCelebration] = useState(false);
-
-  const { recordPractice, progress } = useProgress();
-  const question = practiceExercises[currentIndex];
-  const score = useMemo(
-    () => Math.round((correctCount / practiceExercises.length) * 100),
-    [correctCount],
-  );
-
-  const reset = () => {
-    setCurrentIndex(0);
-    setCorrectCount(0);
-    setMistakes([]);
-    setAnsweredCurrent(false);
-    setFinished(false);
-  };
-
-  const handleAnswered = (isCorrect: boolean, mistake?: MistakeRecord) => {
-    setAnsweredCurrent(true);
-    const nextCorrect = correctCount + (isCorrect ? 1 : 0);
-
-    if (!isCorrect && mistake) {
-      setMistakes((list) => [...list, mistake]);
-    }
-
-    setCorrectCount(nextCorrect);
-
-    const isLast = currentIndex >= practiceExercises.length - 1;
-
-    if (isLast) {
-      const allMistakes = isCorrect || !mistake ? mistakes : [...mistakes, mistake];
-      const nextScore = Math.round(
-        (nextCorrect / practiceExercises.length) * 100,
-      );
-      recordPractice("mixed", nextScore, allMistakes);
-      setFinished(true);
-      if (nextScore >= 70) {
-        setShowCelebration(true);
-      }
-      return;
-    }
-  };
-
-  const goToNextQuestion = () => {
-    setCurrentIndex((value) => value + 1);
-    setAnsweredCurrent(false);
-  };
+  const { progress } = useProgress();
 
   return (
     <div className="page-shell">
       <NavigationMenu />
-      <main className="content-wrap mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-6 sm:px-6">
+      <main className="content-wrap mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
         <ChildHeader
           eyebrow="Practica"
-          title="Zona de practica interactiva"
-          subtitle="Resuelve un reto por turno y aprende al momento."
+          title="Elige practica por tema"
+          subtitle="Selecciona una leccion y practica solo ese tema, sin mezclar preguntas."
           rewardCount={progress.rewards}
         />
 
-        {!finished && question ? (
-          <>
-            <div className="glass-card rounded-4xl px-5 py-4 text-sm font-black text-slate-700">
-              Pregunta {currentIndex + 1} de {practiceExercises.length}
-            </div>
-            <ExerciseCard key={question.id} question={question} onAnswered={handleAnswered} />
-            {answeredCurrent && currentIndex < practiceExercises.length - 1 ? (
-              <div className="glass-card rounded-4xl p-5">
-                <p className="text-sm font-bold text-slate-600">
-                  Mira la explicacion y avanza cuando ya la entiendas.
-                </p>
-                <button
-                  type="button"
-                  onClick={goToNextQuestion}
-                  className="mt-3 inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white"
-                >
-                  Avanzar a la siguiente pregunta
-                </button>
-              </div>
-            ) : null}
-          </>
-        ) : (
-          <ResultSummary
-            score={score}
-            correct={correctCount}
-            total={practiceExercises.length}
-            title={score >= 80 ? "Genial! Lo hiciste super bien!" : "Buen trabajo! Vamos por otra ronda."}
-            onRetry={reset}
-          />
-        )}
+        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {lessons.map((lesson) => {
+            const best = progress.practiceScores[lesson.slug]?.best ?? 0;
+            const unlocked = progress.unlockedLessons.includes(lesson.slug);
 
-        <CelebrationModal
-          open={showCelebration}
-          title="Lluvia de estrellas"
-          message="Wow! Sacaste un gran puntaje en practica."
-          onClose={() => setShowCelebration(false)}
-        />
+            return (
+              <article
+                key={lesson.slug}
+                className={`glass-card rounded-[2rem] bg-gradient-to-br p-5 ${lesson.color} transition-transform duration-300 ${unlocked ? "hover:-translate-y-1" : "opacity-70 grayscale-[0.15]"}`}
+              >
+                <div className="mb-4 flex items-start justify-between gap-3">
+                  <div>
+                    <div className="mb-2 text-4xl">{lesson.emoji}</div>
+                    <h3 className="section-title text-2xl text-slate-800">
+                      <span className="evaluable-text">{lesson.title}</span>
+                    </h3>
+                  </div>
+                  <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-black text-amber-700">
+                    {best}%
+                  </span>
+                </div>
+
+                <p className="mb-6 text-sm font-semibold text-slate-700">
+                  <HighlightedEvaluableText
+                    text={lesson.simpleExplanation}
+                    phrases={lesson.evaluablePhrases}
+                  />
+                </p>
+
+                {unlocked ? (
+                  <Link
+                    href={`/practice/${lesson.slug}`}
+                    className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-3 text-sm font-black text-white"
+                  >
+                    Practicar este tema <ArrowRight className="h-4 w-4" />
+                  </Link>
+                ) : (
+                  <div className="inline-flex items-center gap-2 rounded-full bg-slate-900/10 px-4 py-3 text-sm font-black text-slate-500">
+                    Completa la leccion anterior
+                  </div>
+                )}
+              </article>
+            );
+          })}
+        </section>
+
+        <section className="glass-card rounded-4xl p-5">
+          <h2 className="section-title text-3xl text-slate-800">Consejo</h2>
+          <p className="mt-2 text-sm font-bold text-slate-600">
+            Practica cada tema por separado y luego haz el simulacro final.
+          </p>
+          <p className="mt-2 text-sm font-bold text-slate-600">
+            Temas: <span className="evaluable-text">{lessonMap["possessive-adjectives"].title}</span>, <span className="evaluable-text">{lessonMap["can-cant"].title}</span>, <span className="evaluable-text">{lessonMap["present-progressive"].title}</span>
+          </p>
+        </section>
       </main>
     </div>
   );

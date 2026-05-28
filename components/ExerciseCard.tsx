@@ -4,6 +4,7 @@ import { DragEvent, useMemo, useState } from "react";
 import { CheckCircle2, Lightbulb } from "lucide-react";
 
 import { AnswerButton } from "@/components/AnswerButton";
+import { HighlightedEvaluableText } from "@/components/HighlightedEvaluableText";
 import type {
   ExerciseQuestion,
   FillBlankQuestion,
@@ -41,9 +42,66 @@ function getCorrectAnswerLabel(question: ExerciseQuestion): string {
   }
 }
 
+function getDefaultHint(question: ExerciseQuestion): string {
+  switch (question.type) {
+    case "multiple-choice":
+      return "Lee todas las opciones y elige la que respeta mejor la estructura del tema.";
+    case "fill-blank":
+      return "Identifica la regla del tema y escribe solo la palabra que completa el espacio en blanco.";
+    case "true-false":
+      return "Si la afirmacion es correcta, marca true; si no lo es, marca false.";
+    case "reorder":
+      return "Ordena desde el inicio logico de la oracion y revisa el verbo principal.";
+    case "match":
+      return "Relaciona cada elemento de la izquierda con su pareja correcta de la derecha.";
+    default:
+      return "Lee con calma y aplica la regla del tema.";
+  }
+}
+
+function cleanHintPrefix(hint: string): string {
+  return hint.replace(/^\s*pista\s*:\s*/i, "").trim();
+}
+
+function buildFillBlankHint(question: FillBlankQuestion): string {
+  const answer = question.acceptableAnswers[0] ?? "";
+  const trimmed = answer.trim();
+  const promptText = question.prompt.toLowerCase();
+
+  let ruleHint = "";
+
+  if (question.topic === "present-progressive") {
+    ruleHint = "Usa present progressive: am/is/are + verbo con -ing.";
+  } else if (question.topic === "can-cant") {
+    ruleHint = "Despues de can/can't, usa el verbo base o la respuesta corta correcta (can).";
+  } else if (question.topic === "possessive-adjectives") {
+    ruleHint = "Completa con el possessive adjective correcto segun el dueno (my/your/his/her/its/our/their).";
+  }
+
+  // Extra guidance from wording patterns in the prompt.
+  if (promptText.includes("yes, i ___") || promptText.includes("yes, he ___") || promptText.includes("yes, she ___")) {
+    ruleHint = "Es una respuesta corta: completa con la palabra que cierra correctamente la respuesta.";
+  }
+
+  if (!trimmed) {
+    return `${ruleHint || "Piensa en la palabra clave del tema para completar la oracion."}`;
+  }
+
+  const words = trimmed.split(/\s+/).filter(Boolean);
+  const firstLetter = trimmed.charAt(0);
+  const lastLetter = trimmed.charAt(trimmed.length - 1);
+
+  if (words.length > 1) {
+    return `${ruleHint} La respuesta tiene ${words.length} palabras y empieza con "${firstLetter}".`.trim();
+  }
+
+  return `${ruleHint} La respuesta empieza con "${firstLetter}", termina con "${lastLetter}" y tiene ${trimmed.length} letras.`.trim();
+}
+
 export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardProps) {
   const [selectedChoice, setSelectedChoice] = useState<string>("");
   const [fillValue, setFillValue] = useState("");
+  const [showFillHint, setShowFillHint] = useState(false);
   const [matchAnswers, setMatchAnswers] = useState<Record<string, string>>({});
   const [reorderPool, setReorderPool] = useState<string[]>(
     question.type === "reorder" ? [...question.tokens] : [],
@@ -117,6 +175,7 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
 
     if (question.type === "fill-blank") {
       const q = question as FillBlankQuestion;
+      const generatedHint = q.hint ? cleanHintPrefix(q.hint) : buildFillBlankHint(q);
 
       return (
         <div className="space-y-3">
@@ -127,6 +186,20 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
             placeholder={q.placeholder ?? "Escribe tu respuesta"}
             className="w-full rounded-3xl border border-white/80 bg-white px-4 py-3 text-base font-bold text-slate-700 outline-none ring-blue-200 focus:ring"
           />
+          <button
+            type="button"
+            disabled={disabled || submitted}
+            onClick={() => setShowFillHint((value) => !value)}
+            className="rounded-full bg-blue-100 px-5 py-2 text-xs font-black uppercase tracking-[0.16em] text-blue-800 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {showFillHint ? "Ocultar pista extra" : "DAME UNA PISTA"}
+          </button>
+          {showFillHint ? (
+            <p className="rounded-2xl bg-white/90 px-4 py-3 text-sm font-bold text-slate-600">
+              <Lightbulb className="mr-1 inline h-4 w-4 text-amber-500" />
+              {generatedHint}
+            </p>
+          ) : null}
           <button
             type="button"
             disabled={disabled || submitted}
@@ -145,11 +218,12 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
 
     if (question.type === "true-false") {
       const q = question as TrueFalseQuestion;
+      const quotedPhrases = Array.from(q.statement.matchAll(/"([^"]+)"/g)).map((match) => match[1]);
 
       return (
         <div className="space-y-3">
           <p className="rounded-3xl bg-white/85 px-4 py-3 text-base font-bold text-slate-700">
-            <span className="evaluable-text">{q.statement}</span>
+            <HighlightedEvaluableText text={q.statement} phrases={quotedPhrases} />
           </p>
           <div className="grid gap-3 sm:grid-cols-2">
             {["true", "false"].map((choice) => (
@@ -341,11 +415,9 @@ export function ExerciseCard({ question, onAnswered, disabled }: ExerciseCardPro
       <h3 className="section-title text-2xl text-slate-800">
         <span className="evaluable-text">{question.prompt}</span>
       </h3>
-      {question.hint ? (
-        <p className="mt-2 text-sm font-bold text-slate-500">
-          Pista: <span className="evaluable-text">{question.hint}</span>
-        </p>
-      ) : null}
+      <p className="mt-2 text-sm font-bold text-slate-500">
+        Pista: <span>{question.hint ? cleanHintPrefix(question.hint) : getDefaultHint(question)}</span>
+      </p>
 
       <div className="mt-4">{renderQuestionBody()}</div>
 

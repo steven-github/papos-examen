@@ -1,17 +1,24 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useParams } from "next/navigation";
 
 import { CelebrationModal } from "@/components/CelebrationModal";
 import { ChildHeader } from "@/components/ChildHeader";
 import { ExerciseCard } from "@/components/ExerciseCard";
 import { NavigationMenu } from "@/components/NavigationMenu";
 import { ResultSummary } from "@/components/ResultSummary";
-import { mockExamQuestions } from "@/data/mockExam";
+import { practiceByTopic } from "@/data/exercises";
+import { lessonMap } from "@/data/lessons";
 import { useProgress } from "@/hooks/useProgress";
-import type { MistakeRecord } from "@/types";
+import type { LessonSlug, MistakeRecord } from "@/types";
 
-export default function MockExamPage() {
+export default function TopicPracticePage() {
+  const params = useParams<{ topic: string }>();
+  const topic = params.topic as LessonSlug;
+  const questions = practiceByTopic[topic];
+  const lesson = lessonMap[topic];
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [mistakes, setMistakes] = useState<MistakeRecord[]>([]);
@@ -20,9 +27,28 @@ export default function MockExamPage() {
   const [finished, setFinished] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
 
-  const { recordMockExam, progress } = useProgress();
-  const question = mockExamQuestions[currentIndex];
-  const score = useMemo(() => Math.round((correctCount / mockExamQuestions.length) * 100), [correctCount]);
+  const { recordPractice, progress } = useProgress();
+  const question = questions?.[currentIndex];
+  const score = useMemo(() => {
+    if (!questions?.length) {
+      return 0;
+    }
+
+    return Math.round((correctCount / questions.length) * 100);
+  }, [correctCount, questions]);
+
+  if (!lesson || !questions?.length) {
+    return (
+      <div className="page-shell">
+        <NavigationMenu />
+        <main className="content-wrap mx-auto max-w-4xl px-4 py-10">
+          <div className="glass-card rounded-4xl p-6 text-center">
+            <h1 className="section-title text-3xl text-slate-800">Tema de practica no encontrado</h1>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   const reset = () => {
     setCurrentIndex(0);
@@ -49,17 +75,16 @@ export default function MockExamPage() {
     setAnsweredQuestionIds((list) => [...list, question.id]);
     setCorrectCount(nextCorrect);
 
-    const isLast = currentIndex >= mockExamQuestions.length - 1;
+    const isLast = currentIndex >= questions.length - 1;
 
     if (isLast) {
       const allMistakes = isCorrect || !mistake ? mistakes : [...mistakes, mistake];
-      const nextScore = Math.round((nextCorrect / mockExamQuestions.length) * 100);
-      recordMockExam(nextScore, allMistakes);
+      const nextScore = Math.round((nextCorrect / questions.length) * 100);
+      recordPractice(topic, nextScore, allMistakes);
       setFinished(true);
-      if (nextScore >= 75) {
+      if (nextScore >= 70) {
         setShowCelebration(true);
       }
-      return;
     }
   };
 
@@ -76,7 +101,7 @@ export default function MockExamPage() {
     }
 
     setCurrentIndex(previousIndex);
-    const previousQuestion = mockExamQuestions[previousIndex];
+    const previousQuestion = questions[previousIndex];
     setAnsweredCurrent(answeredQuestionIds.includes(previousQuestion.id));
   };
 
@@ -85,23 +110,23 @@ export default function MockExamPage() {
       <NavigationMenu />
       <main className="content-wrap mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-6 sm:px-6">
         <ChildHeader
-          eyebrow="Simulacro"
-          title="Desafio final de Grammar"
-          subtitle="Reto final! Lee con calma y responde paso a paso."
+          eyebrow="Practica"
+          title={`${lesson.emoji} ${lesson.title}`}
+          subtitle="Practica enfocada en un solo tema para evitar confusiones."
           rewardCount={progress.rewards}
         />
 
         {!finished && question ? (
           <>
             <div className="glass-card rounded-4xl px-5 py-4 text-sm font-black text-slate-700">
-              Pregunta {currentIndex + 1} de {mockExamQuestions.length}
+              Pregunta {currentIndex + 1} de {questions.length}
             </div>
             <ExerciseCard key={question.id} question={question} onAnswered={handleAnswered} />
-            {currentIndex > 0 || (answeredCurrent && currentIndex < mockExamQuestions.length - 1) ? (
+            {currentIndex > 0 || (answeredCurrent && currentIndex < questions.length - 1) ? (
               <div className="glass-card rounded-4xl p-5">
-                {answeredCurrent && currentIndex < mockExamQuestions.length - 1 ? (
+                {answeredCurrent && currentIndex < questions.length - 1 ? (
                   <p className="text-sm font-bold text-slate-600">
-                    Lee la explicacion con calma. Avanza cuando ya la entiendas.
+                    Mira la explicacion y avanza cuando ya la entiendas.
                   </p>
                 ) : null}
                 <div className="mt-3 flex flex-wrap gap-3">
@@ -114,7 +139,7 @@ export default function MockExamPage() {
                       Ir a la pregunta anterior
                     </button>
                   ) : null}
-                  {answeredCurrent && currentIndex < mockExamQuestions.length - 1 ? (
+                  {answeredCurrent && currentIndex < questions.length - 1 ? (
                     <button
                       type="button"
                       onClick={goToNextQuestion}
@@ -131,16 +156,16 @@ export default function MockExamPage() {
           <ResultSummary
             score={score}
             correct={correctCount}
-            total={mockExamQuestions.length}
-            title={score >= 85 ? "Excelente simulacro!" : "Buen intento! Revisa y vuelve a jugar."}
+            total={questions.length}
+            title={score >= 80 ? "Genial! Lo hiciste super bien!" : "Buen trabajo! Vamos por otra ronda."}
             onRetry={reset}
           />
         )}
 
         <CelebrationModal
           open={showCelebration}
-          title="Gran resultado"
-          message="Fantastico! Estas cada vez mas listo para el examen."
+          title="Lluvia de estrellas"
+          message="Wow! Sacaste un gran puntaje en este tema."
           onClose={() => setShowCelebration(false)}
         />
       </main>

@@ -53,7 +53,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     topic: "can-cant",
     type: "true-false",
     prompt: "Lee la oracion y decide.",
-    statement: "The sentence 'He can't swim.' tells us a negative ability.",
+    statement: "La oracion en ingles 'He can't swim.' expresa una habilidad en negativo.",
     correctAnswer: "true",
     explanation: "Can't significa no poder.",
   },
@@ -88,7 +88,8 @@ export const practiceExercises: ExerciseQuestion[] = [
     topic: "present-progressive",
     type: "true-false",
     prompt: "Lee la oracion y decide.",
-    statement: "'We aren't sailing.' is a present progressive negative sentence.",
+    statement: "La oracion en ingles \"We aren't sailing.\" esta en present progressive negativo.",
+    hint: "Recuerda: present progressive usa am/is/are + verbo con -ing para acciones que pasan ahora.",
     correctAnswer: "true",
     explanation: "La forma negativa del present progressive usa aren't + verbo con -ing.",
   },
@@ -102,3 +103,13 @@ export const practiceExercises: ExerciseQuestion[] = [
     explanation: "El orden es sujeto + verb to be + verbo-ing + complemento.",
   },
 ];
+
+export const practiceByTopic = {
+  "possessive-adjectives": practiceExercises.filter(
+    (question) => question.topic === "possessive-adjectives",
+  ),
+  "can-cant": practiceExercises.filter((question) => question.topic === "can-cant"),
+  "present-progressive": practiceExercises.filter(
+    (question) => question.topic === "present-progressive",
+  ),
+} as const;

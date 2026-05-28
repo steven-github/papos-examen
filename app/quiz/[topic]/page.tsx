@@ -21,6 +21,7 @@ export default function TopicQuizPage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [mistakes, setMistakes] = useState<MistakeRecord[]>([]);
+  const [answeredQuestionIds, setAnsweredQuestionIds] = useState<string[]>([]);
   const [answeredCurrent, setAnsweredCurrent] = useState(false);
   const [finished, setFinished] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
@@ -50,18 +51,25 @@ export default function TopicQuizPage() {
     setCurrentIndex(0);
     setCorrectCount(0);
     setMistakes([]);
+    setAnsweredQuestionIds([]);
     setAnsweredCurrent(false);
     setFinished(false);
   };
 
   const handleAnswered = (isCorrect: boolean, mistake?: MistakeRecord) => {
     setAnsweredCurrent(true);
+
+    if (answeredQuestionIds.includes(question.id)) {
+      return;
+    }
+
     const nextCorrect = correctCount + (isCorrect ? 1 : 0);
 
     if (!isCorrect && mistake) {
       setMistakes((list) => [...list, mistake]);
     }
 
+    setAnsweredQuestionIds((list) => [...list, question.id]);
     setCorrectCount(nextCorrect);
 
     const isLast = currentIndex >= quiz.questions.length - 1;
@@ -81,6 +89,18 @@ export default function TopicQuizPage() {
   const goToNextQuestion = () => {
     setCurrentIndex((value) => value + 1);
     setAnsweredCurrent(false);
+  };
+
+  const goToPreviousQuestion = () => {
+    const previousIndex = currentIndex - 1;
+
+    if (previousIndex < 0) {
+      return;
+    }
+
+    setCurrentIndex(previousIndex);
+    const previousQuestion = quiz.questions[previousIndex];
+    setAnsweredCurrent(answeredQuestionIds.includes(previousQuestion.id));
   };
 
   return (
@@ -105,18 +125,33 @@ export default function TopicQuizPage() {
               Pregunta {currentIndex + 1} de {quiz.questions.length}
             </div>
             <ExerciseCard key={question.id} question={question} onAnswered={handleAnswered} />
-            {answeredCurrent && currentIndex < quiz.questions.length - 1 ? (
+            {currentIndex > 0 || (answeredCurrent && currentIndex < quiz.questions.length - 1) ? (
               <div className="glass-card rounded-4xl p-5">
-                <p className="text-sm font-bold text-slate-600">
-                  Mira la explicacion y avanza cuando ya la entiendas.
-                </p>
-                <button
-                  type="button"
-                  onClick={goToNextQuestion}
-                  className="mt-3 inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white"
-                >
-                  Avanzar a la siguiente pregunta
-                </button>
+                {answeredCurrent && currentIndex < quiz.questions.length - 1 ? (
+                  <p className="text-sm font-bold text-slate-600">
+                    Mira la explicacion y avanza cuando ya la entiendas.
+                  </p>
+                ) : null}
+                <div className="mt-3 flex flex-wrap gap-3">
+                  {currentIndex > 0 ? (
+                    <button
+                      type="button"
+                      onClick={goToPreviousQuestion}
+                      className="inline-flex items-center rounded-full bg-white px-5 py-3 text-sm font-black text-slate-700 ring-1 ring-slate-200"
+                    >
+                      Ir a la pregunta anterior
+                    </button>
+                  ) : null}
+                  {answeredCurrent && currentIndex < quiz.questions.length - 1 ? (
+                    <button
+                      type="button"
+                      onClick={goToNextQuestion}
+                      className="inline-flex items-center rounded-full bg-slate-900 px-5 py-3 text-sm font-black text-white"
+                    >
+                      Avanzar a la siguiente pregunta
+                    </button>
+                  ) : null}
+                </div>
               </div>
             ) : null}
           </>

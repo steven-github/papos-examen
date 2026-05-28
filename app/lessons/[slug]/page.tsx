@@ -133,7 +133,7 @@ export default function LessonDetailPage() {
               <CheckCircle2 className="h-4 w-4" /> {alreadyCompleted ? "Completada" : "Marcar como completada"}
             </button>
             <Link
-              href="/practice"
+              href={`/practice/${slug}`}
               className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-black text-slate-700 ring-1 ring-slate-200"
             >
               Practicar ahora <ArrowRight className="h-4 w-4" />
