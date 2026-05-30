@@ -36,16 +36,8 @@ export function buildQuestionSession<T extends { id: string }>(questions: T[], t
     return [];
   }
 
-  const session: T[] = [];
+  const uniquePool = shuffleArray(questions);
+  const sessionSize = Math.min(total, uniquePool.length);
 
-  for (let i = 0; i < total; i += 1) {
-    const source = questions[Math.floor(Math.random() * questions.length)] ?? questions[0];
-    if (!source) {
-      break;
-    }
-
-    session.push({ ...source, id: `${source.id}__${i + 1}` } as T);
-  }
-
-  return shuffleArray(session);
+  return uniquePool.slice(0, sessionSize);
 }
