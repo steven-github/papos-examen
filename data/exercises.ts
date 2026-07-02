@@ -99,7 +99,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     topic: "present-progressive-gerunds",
     type: "reorder",
     prompt: "Construye la oración.",
-    tokens: ["eating", "now", "the", "sandwich", "is", "monkey"],
+    tokens: ["the", "eating", "now", "the", "sandwich", "is", "monkey"],
     correctOrder: ["the", "monkey", "is", "eating", "the", "sandwich", "now"],
     explanation: "Estructura: sujeto + is + gerundio + complemento + cuando.",
   },
