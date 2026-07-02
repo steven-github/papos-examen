@@ -66,9 +66,9 @@ export default function HomePage() {
             <div className="mt-5 rounded-3xl bg-white/90 p-4">
               <p className="text-sm font-black text-slate-600">Paginas de repaso:</p>
               <div className="mt-2 space-y-1 text-sm font-bold text-slate-600">
-                <p><span className="evaluable-text">Can / Can&apos;t</span>: Grammar Friends 16, 17, 18 | Family and Friends 24, 25</p>
-                <p><span className="evaluable-text">Possessive Adjectives</span>: Grammar Friends 19 | Family and Friends 25</p>
-                <p><span className="evaluable-text">Present Progressive</span>: Grammar Friends 22, 23, 24 | Family and Friends 33</p>
+                <p><span className="evaluable-text">Zoo Animals</span>: Grammar Friends Unit 5 | Family and Friends Book</p>
+                <p><span className="evaluable-text">Present Progressive Questions</span>: Grammar Friends 26, 27, 28 | Family and Friends 40, 41, 42</p>
+                <p><span className="evaluable-text">Present Progressive Gerunds</span>: Grammar Friends 29 | Family and Friends 40, 41, 42</p>
               </div>
             </div>
           </article>

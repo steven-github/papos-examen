@@ -1,7 +1,7 @@
 export type LessonSlug =
-  "possessive-adjectives"
-  | "can-cant"
-  | "present-progressive";
+  "zoo-animals"
+  | "present-progressive-questions"
+  | "present-progressive-gerunds";
 
 export type TopicId = LessonSlug | "mixed";
 

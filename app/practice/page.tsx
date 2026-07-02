@@ -75,7 +75,7 @@ export default function PracticePage() {
             Practica cada tema por separado y luego haz el simulacro final.
           </p>
           <p className="mt-2 text-sm font-bold text-slate-600">
-            Temas: <span className="evaluable-text">{lessonMap["possessive-adjectives"].title}</span>, <span className="evaluable-text">{lessonMap["can-cant"].title}</span>, <span className="evaluable-text">{lessonMap["present-progressive"].title}</span>
+            Temas: <span className="evaluable-text">{lessonMap["zoo-animals"].title}</span>, <span className="evaluable-text">{lessonMap["present-progressive-questions"].title}</span>, <span className="evaluable-text">{lessonMap["present-progressive-gerunds"].title}</span>
           </p>
         </section>
       </main>

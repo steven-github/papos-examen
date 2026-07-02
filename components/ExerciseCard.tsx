@@ -71,12 +71,12 @@ function buildFillBlankHint(question: FillBlankQuestion): string {
 
   let ruleHint = "";
 
-  if (question.topic === "present-progressive") {
-    ruleHint = "Usa present progressive: am/is/are + verbo con -ing.";
-  } else if (question.topic === "can-cant") {
-    ruleHint = "Despues de can/can't, usa el verbo base o la respuesta corta correcta (can).";
-  } else if (question.topic === "possessive-adjectives") {
-    ruleHint = "Completa con el possessive adjective correcto segun el dueño (my/your/his/her/its/our/their).";
+  if (question.topic === "zoo-animals") {
+    ruleHint = "Completa con el nombre correcto del animal del zoológico.";
+  } else if (question.topic === "present-progressive-questions") {
+    ruleHint = "Estructura: Is/Are + sujeto + verbo-ing. Respuesta corta: Yes/No + pronombre + am/is/are.";
+  } else if (question.topic === "present-progressive-gerunds") {
+    ruleHint = "Usa present progressive: am/is/are + verbo con -ing para acciones en progreso.";
   }
 
   // Extra guidance from wording patterns in the prompt.
