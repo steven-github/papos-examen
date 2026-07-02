@@ -20,6 +20,8 @@ interface ExerciseCardProps {
   onAnswered: (isCorrect: boolean, mistake?: MistakeRecord) => void;
   disabled?: boolean;
   onRetryWrong?: () => void;
+  currentIndex?: number;
+  totalQuestions?: number;
 }
 
 function normalized(value: string) {
@@ -72,11 +74,11 @@ function buildFillBlankHint(question: FillBlankQuestion): string {
   let ruleHint = "";
 
   if (question.topic === "zoo-animals") {
-    ruleHint = "Completa con el nombre correcto del animal del zoológico.";
+    ruleHint = "¿Qué animal ves en la oración?";
   } else if (question.topic === "present-progressive-questions") {
-    ruleHint = "Estructura: Is/Are + sujeto + verbo-ing. Respuesta corta: Yes/No + pronombre + am/is/are.";
+    ruleHint = "¿Está pasando AHORA? Usa: Is/Are + persona + verbo-ing";
   } else if (question.topic === "present-progressive-gerunds") {
-    ruleHint = "Usa present progressive: am/is/are + verbo con -ing para acciones en progreso.";
+    ruleHint = "¿Está pasando AHORA? Usa el verbo con -ing";
   }
 
   // Extra guidance from wording patterns in the prompt.
@@ -99,7 +101,7 @@ function buildFillBlankHint(question: FillBlankQuestion): string {
   return `${ruleHint} La respuesta empieza con "${firstLetter}", termina con "${lastLetter}" y tiene ${trimmed.length} letras.`.trim();
 }
 
-export function ExerciseCard({ question, onAnswered, disabled, onRetryWrong }: ExerciseCardProps) {
+export function ExerciseCard({ question, onAnswered, disabled, onRetryWrong, currentIndex, totalQuestions }: ExerciseCardProps) {
   const [selectedChoice, setSelectedChoice] = useState<string>("");
   const [fillValue, setFillValue] = useState("");
   const [showFillHint, setShowFillHint] = useState(false);
@@ -117,8 +119,8 @@ export function ExerciseCard({ question, onAnswered, disabled, onRetryWrong }: E
     }
 
     return {
-      title: isCorrect ? "Muy bien!" : "Buen intento!",
-      tone: isCorrect ? "text-emerald-700" : "text-rose-700",
+      title: isCorrect ? "¡Excelente! 🎉" : "¡Casi! 💡",
+      tone: isCorrect ? "text-emerald-700" : "text-amber-700",
     };
   }, [isCorrect, submitted]);
 
@@ -424,8 +426,15 @@ export function ExerciseCard({ question, onAnswered, disabled, onRetryWrong }: E
 
   return (
     <article className="glass-card rounded-4xl p-5 sm:p-6">
-      <div className="mb-3 flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-blue-700">
-        <CheckCircle2 className="h-4 w-4" /> {question.type.replace("-", " ")}
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-blue-700">
+          <CheckCircle2 className="h-4 w-4" /> {question.type.replace("-", " ")}
+        </div>
+        {currentIndex !== undefined && totalQuestions !== undefined && (
+          <span className="inline-flex rounded-full bg-blue-100 px-3 py-1 text-xs font-black text-blue-700">
+            {currentIndex + 1} / {totalQuestions}
+          </span>
+        )}
       </div>
       <h3 className="section-title text-2xl text-slate-800">
         <span className="evaluable-text">{question.prompt}</span>

@@ -150,7 +150,7 @@ export default function TopicPracticePage() {
                         <div className='glass-card rounded-4xl px-5 py-4 text-sm font-black text-slate-700'>
                             Pregunta {currentIndex + 1} de {questionSet.length}
                         </div>
-                        <ExerciseCard key={question.id} question={question} onAnswered={handleAnswered} />
+                        <ExerciseCard key={question.id} question={question} onAnswered={handleAnswered} currentIndex={currentIndex} totalQuestions={questionSet.length} />
                         {currentIndex > 0 || answeredCurrent ? (
                             <div className='glass-card rounded-4xl p-5'>
                                 {answeredCurrent && pendingFinalScore === null ? (

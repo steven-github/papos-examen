@@ -6,12 +6,8 @@ import { BookOpen, Brain, ChartColumnBig, GraduationCap, House, PenSquare, Rotat
 
 const items = [
   { href: "/", label: "Inicio", icon: House },
-  { href: "/lessons", label: "Lecciones", icon: BookOpen },
-  { href: "/practice", label: "Practica", icon: PenSquare },
-  { href: "/quiz", label: "Quiz", icon: Brain },
-  { href: "/mock-exam", label: "Simulacro", icon: GraduationCap },
-  { href: "/review", label: "Revision", icon: RotateCcw },
-  { href: "/progress", label: "Progreso", icon: ChartColumnBig },
+  { href: "/lessons", label: "Aprender", icon: BookOpen },
+  { href: "/mock-exam", label: "Examen", icon: GraduationCap },
 ];
 
 export function NavigationMenu() {

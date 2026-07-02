@@ -39,6 +39,7 @@ body {
         radial-gradient(circle at top right, rgba(186, 231, 255, 0.75), transparent 24%), linear-gradient(180deg, #eef9ff 0%, #fff9f1 48%, #eef7ff 100%);
     color: var(--foreground);
     font-family: var(--font-nunito), sans-serif;
+    line-height: 1.8;
 }
 
 a {
