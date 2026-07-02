@@ -448,10 +448,20 @@ export function ExerciseCard({ question, onAnswered, disabled, onRetryWrong, cur
       {feedback ? (
         <div className="mt-4 rounded-3xl bg-white/90 p-4">
           <p className={`section-title text-2xl ${feedback.tone}`}>{feedback.title}</p>
-          <p className="mt-2 text-sm font-bold text-slate-600">{question.explanation}</p>
-          <p className="mt-2 inline-flex items-center gap-1 text-xs font-black uppercase tracking-[0.16em] text-slate-500">
-            <Lightbulb className="h-4 w-4" /> Explicacion: {question.explanation}
-          </p>
+          
+          {!isCorrect && (
+            <div className="mt-3 rounded-2xl bg-amber-50 p-3 border-l-4 border-amber-400">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-amber-700 mb-2">
+                ✓ Respuesta Correcta:
+              </p>
+              <p className="text-sm font-bold text-amber-900">
+                {getCorrectAnswerLabel(question)}
+              </p>
+            </div>
+          )}
+          
+          <p className="mt-3 text-sm font-bold text-slate-600">{question.explanation}</p>
+          
           {!isCorrect && !disabled ? (
             <button
               type="button"
