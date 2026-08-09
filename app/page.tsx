@@ -62,7 +62,7 @@ export default function HomePage() {
               <li>Nivel: 3rd Grade</li>
               <li>Valor porcentual: 15%</li>
               <li>Ano escolar: 2026</li>
-              <li>Fecha: Miercoles que viene</li>
+              <li>Fecha: Martes 11 de Agosto 2026</li>
             </ul>
             <div className="mt-5 rounded-3xl bg-white/90 p-4">
               <p className="text-sm font-black text-slate-600">Paginas de repaso:</p>

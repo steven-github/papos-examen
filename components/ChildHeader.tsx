@@ -27,7 +27,7 @@ export function ChildHeader({ title, subtitle, eyebrow, rewardCount }: ChildHead
                         <div className='mb-1 flex items-center gap-2 text-sm font-black text-slate-500'>
                             <CalendarDays className='h-4 w-4' /> Dia del examen
                         </div>
-                        <p className='text-sm font-bold text-slate-700'>Miercoles que viene</p>
+                        <p className='text-sm font-bold text-slate-700'>Martes 11 de Agosto 2026</p>
                     </div>
                     <div className='rounded-[1.5rem] bg-slate-900 px-4 py-3 text-white shadow-sm'>
                         <div className='mb-1 flex items-center gap-2 text-sm font-black text-amber-200'>
