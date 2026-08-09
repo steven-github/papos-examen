@@ -114,7 +114,7 @@ export default function MockExamPage() {
             <main className='content-wrap mx-auto flex w-full max-w-7xl  flex-col gap-6 px-4 py-6 sm:px-6'>
                 <ChildHeader
                     eyebrow='Simulacro'
-                    title='Desafio final de Grammar'
+                    title='Desafio final de Phonics'
                     subtitle='Reto final! Lee con calma y responde paso a paso.'
                     rewardCount={progress.rewards}
                 />

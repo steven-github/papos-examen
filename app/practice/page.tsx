@@ -31,7 +31,7 @@ export default function PracticePage() {
             return (
               <article
                 key={lesson.slug}
-                className={`glass-card rounded-[2rem] bg-gradient-to-br p-5 ${lesson.color} transition-transform duration-300 ${unlocked ? "hover:-translate-y-1" : "opacity-70 grayscale-[0.15]"}`}
+                className={`glass-card rounded-4xl bg-linear-to-br p-5 ${lesson.color} transition-transform duration-300 ${unlocked ? "hover:-translate-y-1" : "opacity-70 grayscale-[0.15]"}`}
               >
                 <div className="mb-4 flex items-start justify-between gap-3">
                   <div>
@@ -75,7 +75,12 @@ export default function PracticePage() {
             Practica cada tema por separado y luego haz el simulacro final.
           </p>
           <p className="mt-2 text-sm font-bold text-slate-600">
-            Temas: <span className="evaluable-text">{lessonMap["zoo-animals"].title}</span>, <span className="evaluable-text">{lessonMap["present-progressive-questions"].title}</span>, <span className="evaluable-text">{lessonMap["present-progressive-gerunds"].title}</span>
+            Temas: {lessons.map((lesson, index) => (
+              <span key={lesson.slug} className="evaluable-text">
+                {lessonMap[lesson.slug].title}
+                {index < lessons.length - 1 ? ", " : ""}
+              </span>
+            ))}
           </p>
         </section>
       </main>

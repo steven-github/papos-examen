@@ -15,7 +15,7 @@ export default function LessonsPage() {
       <main className="content-wrap mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
         <ChildHeader
           eyebrow="Lecciones"
-          title="Grammar paso a paso"
+          title="Phonics paso a paso"
           subtitle="Lecciones cortitas y faciles. Completa una y se abre la siguiente."
           rewardCount={progress.rewards}
         />

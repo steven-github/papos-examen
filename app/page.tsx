@@ -19,8 +19,8 @@ export default function HomePage() {
       <main className="content-wrap mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
         <ChildHeader
           eyebrow="Love at Work International Christian School"
-          title="Grammar Galaxy Mission"
-          subtitle="Hola campeon! Vamos paso a paso con los temas del examen para que te vaya super bien."
+          title="Phonics Galaxy Mission"
+          subtitle="Hola campeon! Vamos paso a paso con los temas del examen de phonics para que te vaya super bien."
           rewardCount={progress.rewards}
         />
 
@@ -57,18 +57,19 @@ export default function HomePage() {
           <article className="glass-card rounded-4xl p-5">
             <h2 className="section-title text-3xl text-slate-800">Datos del examen</h2>
             <ul className="mt-4 space-y-2 text-sm font-bold text-slate-700">
-              <li>Teacher: Priscilla Martinez</li>
-              <li>Materia: Grammar</li>
-              <li>Evaluacion: #2</li>
+              <li>Teacher: Maria Paula Guillen</li>
+              <li>Materia: Phonics (Test)</li>
+              <li>Nivel: 3rd Grade</li>
+              <li>Valor porcentual: 15%</li>
               <li>Ano escolar: 2026</li>
-              <li>Fecha: Friday, May 29th, 2026</li>
+              <li>Fecha: Miercoles que viene</li>
             </ul>
             <div className="mt-5 rounded-3xl bg-white/90 p-4">
               <p className="text-sm font-black text-slate-600">Paginas de repaso:</p>
               <div className="mt-2 space-y-1 text-sm font-bold text-slate-600">
-                <p><span className="evaluable-text">Zoo Animals</span>: Grammar Friends Unit 5 | Family and Friends Book</p>
-                <p><span className="evaluable-text">Present Progressive Questions</span>: Grammar Friends 26, 27, 28 | Family and Friends 40, 41, 42</p>
-                <p><span className="evaluable-text">Present Progressive Gerunds</span>: Grammar Friends 29 | Family and Friends 40, 41, 42</p>
+                <p><span className="evaluable-text">OW/OU spellings</span>: Lesson Four Phonics Unit 7 (cow, clown, flower, house, round, mouse, brown, out, down, shout, cloud)</p>
+                <p><span className="evaluable-text">LD/LT endings</span>: Lesson Four Phonics Unit 8 (child, shield, field, belt, quilt, adult)</p>
+                <p><span className="evaluable-text">Review 3 (solo punto 6) + Unit 9</span>: endings nd/nt/mp (hand, pond, plant/plants, tent, lamp, camp, wind, aunt)</p>
               </div>
             </div>
           </article>

@@ -1,7 +1,7 @@
 export type LessonSlug =
-  "zoo-animals"
-  | "present-progressive-questions"
-  | "present-progressive-gerunds";
+  "ow-ou-blends"
+  | "ld-lt-endings"
+  | "nd-nt-mp-endings";
 
 export type TopicId = LessonSlug | "mixed";
 

@@ -73,12 +73,14 @@ function buildFillBlankHint(question: FillBlankQuestion): string {
 
   let ruleHint = "";
 
-  if (question.topic === "zoo-animals") {
-    ruleHint = "¿Qué animal ves en la oración?";
-  } else if (question.topic === "present-progressive-questions") {
-    ruleHint = "¿Está pasando AHORA? Usa: Is/Are + persona + verbo-ing";
-  } else if (question.topic === "present-progressive-gerunds") {
-    ruleHint = "¿Está pasando AHORA? Usa el verbo con -ing";
+  if (question.topic === "ow-ou-blends") {
+    ruleHint = "Piensa en el patron de sonido: ¿debe ser ow o ou?";
+  } else if (question.topic === "ld-lt-endings") {
+    ruleHint = "Mira el final de la palabra: ¿necesita ld o lt?";
+  } else if (question.topic === "nd-nt-mp-endings") {
+    ruleHint = "Completa con el final correcto: nd, nt o mp.";
+  } else if (question.topic === "review-3-mixed-skills") {
+    ruleHint = "Revisa si piden articulo (a/an/some) o comparativo/superlativo.";
   }
 
   // Extra guidance from wording patterns in the prompt.

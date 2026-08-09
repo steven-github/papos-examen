@@ -14,9 +14,9 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Grammar Galaxy Mission",
+  title: "Phonics Galaxy Mission",
   description:
-    "Plataforma interactiva de repaso de Grammar para 3rd grade, con lecciones, quiz, simulacro y seguimiento.",
+    "Plataforma interactiva de repaso de Phonics para 3rd grade, con lecciones, quiz, simulacro y seguimiento.",
 };
 
 export default function RootLayout({

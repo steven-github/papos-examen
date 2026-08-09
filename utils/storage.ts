@@ -34,12 +34,20 @@ export function loadProgress(): AppProgress {
 
     const parsed = JSON.parse(raw) as Partial<AppProgress>;
 
+    const validLessons = new Set<LessonSlug>(lessonOrder);
+    const normalizedCompleted = (parsed.completedLessons ?? []).filter((lesson): lesson is LessonSlug =>
+      validLessons.has(lesson as LessonSlug),
+    );
+    const normalizedUnlocked = (parsed.unlockedLessons ?? []).filter((lesson): lesson is LessonSlug =>
+      validLessons.has(lesson as LessonSlug),
+    );
+
     const baseProgress = {
       ...initialProgress,
       ...parsed,
-      completedLessons: parsed.completedLessons ?? [],
-      unlockedLessons: parsed.unlockedLessons?.length
-        ? (parsed.unlockedLessons as LessonSlug[])
+      completedLessons: normalizedCompleted,
+      unlockedLessons: normalizedUnlocked.length
+        ? normalizedUnlocked
         : [lessonOrder[0]],
       quizScores: parsed.quizScores ?? {},
       practiceScores: parsed.practiceScores ?? {},
@@ -50,6 +58,7 @@ export function loadProgress(): AppProgress {
     };
 
     const unlocked = new Set<LessonSlug>(baseProgress.unlockedLessons);
+    unlocked.add(lessonOrder[0]);
 
     lessonOrder.forEach((lesson, index) => {
       const hasCompleted = baseProgress.completedLessons.includes(lesson);
