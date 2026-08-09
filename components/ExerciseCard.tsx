@@ -79,8 +79,6 @@ function buildFillBlankHint(question: FillBlankQuestion): string {
     ruleHint = "Mira el final de la palabra: ¿necesita ld o lt?";
   } else if (question.topic === "nd-nt-mp-endings") {
     ruleHint = "Completa con el final correcto: nd, nt o mp.";
-  } else if (question.topic === "review-3-mixed-skills") {
-    ruleHint = "Revisa si piden articulo (a/an/some) o comparativo/superlativo.";
   }
 
   // Extra guidance from wording patterns in the prompt.
