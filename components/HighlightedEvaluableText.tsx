@@ -1,6 +1,7 @@
 interface HighlightedEvaluableTextProps {
   text: string;
   phrases?: string[];
+  showTranslations?: boolean;
 }
 
 const evaluableTranslations: Record<string, string> = {
@@ -8,6 +9,7 @@ const evaluableTranslations: Record<string, string> = {
   "air pollution": "Contaminación del aire",
   "water pollution": "Contaminación del agua",
   "soil pollution": "Contaminación del suelo",
+  soil: "Suelo",
   environment: "Medio ambiente",
   waste: "Desechos",
   "organic waste": "Desechos orgánicos",
@@ -19,6 +21,7 @@ const evaluableTranslations: Record<string, string> = {
   recycle: "Reciclar",
   "sustainable consumption": "Consumo sostenible",
   matter: "Materia",
+  property: "Propiedad",
   properties: "Propiedades",
   color: "Color",
   temperature: "Temperatura",
@@ -27,6 +30,7 @@ const evaluableTranslations: Record<string, string> = {
   taste: "Sabor",
   hot: "Caliente",
   cold: "Frío",
+  heavy: "Pesado",
   smooth: "Liso",
   rough: "Áspero",
   soft: "Suave",
@@ -36,6 +40,8 @@ const evaluableTranslations: Record<string, string> = {
   sour: "Ácido",
   bitter: "Amargo",
   "states of matter": "Estados de la materia",
+  ice: "Hielo",
+  water: "Agua",
   solid: "Sólido",
   liquid: "Líquido",
   gas: "Gas",
@@ -129,7 +135,7 @@ function buildPhrasePattern(value: string) {
   return `(?<![A-Za-z0-9])${escaped}(?![A-Za-z0-9])`;
 }
 
-export function HighlightedEvaluableText({ text, phrases = [] }: HighlightedEvaluableTextProps) {
+export function HighlightedEvaluableText({ text, phrases = [], showTranslations = true }: HighlightedEvaluableTextProps) {
   const normalized = Array.from(new Set(phrases.map((phrase) => phrase.trim()).filter(Boolean)));
 
   if (normalized.length === 0) {
@@ -158,7 +164,7 @@ export function HighlightedEvaluableText({ text, phrases = [] }: HighlightedEval
     parts.push({
       value: matchedText,
       highlighted: phraseSet.has(normalizeToken(matchedText)),
-      translation: /^\s*\(/.test(remainingText) ? undefined : translation,
+      translation: showTranslations && !/^\s*\(/.test(remainingText) ? translation : undefined,
     });
     cursor = end;
     match = pattern.exec(text);

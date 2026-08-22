@@ -98,16 +98,25 @@ export default function LessonDetailPage() {
                         <h3 className='section-title text-3xl text-slate-800'>Comprobaciones rapidas</h3>
                         <div className='mt-4 space-y-3'>
                             {lesson.quickChecks.map((check) => (
-                                <div key={check.prompt} className='rounded-3xl bg-white/90 p-3'>
-                                    <p className='text-sm font-black text-slate-700'>
-                                        <span className='evaluable-text'>{check.prompt}</span>
+                                <div key={check.prompt} className='rounded-3xl bg-white/90 p-4'>
+                                    <p className='text-base font-black text-slate-800'>
+                                        <HighlightedEvaluableText text={check.prompt} phrases={lesson.evaluablePhrases} showTranslations={false} />
                                     </p>
-                                    <p className='mt-1 text-xs font-bold text-slate-500'>
-                                        Opciones: <span className='evaluable-text'>{check.choices.join(" | ")}</span>
-                                    </p>
-                                    <p className='mt-1 text-xs font-bold text-emerald-700'>
-                                        Correcta: <span className='evaluable-text'>{check.correctAnswer}</span> - {check.explanation}
-                                    </p>
+                                    <p className='mt-3 text-xs font-black uppercase tracking-[0.16em] text-slate-500'>Opciones</p>
+                                    <div className='mt-2 flex flex-wrap gap-2'>
+                                        {check.choices.map((choice) => (
+                                            <span key={choice} className='rounded-2xl bg-slate-100 px-3 py-2 text-sm font-bold text-slate-700 ring-1 ring-slate-200'>
+                                                <HighlightedEvaluableText text={choice} phrases={lesson.evaluablePhrases} />
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div className='mt-4 rounded-2xl bg-emerald-50 px-4 py-3 text-sm font-bold text-emerald-800 ring-1 ring-emerald-100'>
+                                        <p>
+                                            <span className='font-black'>Respuesta:</span>{" "}
+                                            <HighlightedEvaluableText text={check.correctAnswer} phrases={lesson.evaluablePhrases} showTranslations={false} />
+                                        </p>
+                                        <p className='mt-1 text-emerald-700'>{check.explanation}</p>
+                                    </div>
                                 </div>
                             ))}
                         </div>
