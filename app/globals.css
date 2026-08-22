@@ -15,6 +15,8 @@
     --blueberry: #3f63dd;
     --plum: #6f63c8;
     --ink-soft: #53617e;
+    --font-nunito: ui-rounded, "Avenir Next", "Trebuchet MS", sans-serif;
+    --font-baloo: "Trebuchet MS", ui-rounded, sans-serif;
 }
 
 @theme inline {

@@ -11,7 +11,7 @@ interface ChildHeaderProps {
 
 export function ChildHeader({ title, subtitle, eyebrow, rewardCount }: ChildHeaderProps) {
     return (
-        <section className='glass-card rounded-[2rem] px-5 py-6 sm:px-8'>
+        <section className='glass-card rounded-4xl px-5 py-6 sm:px-8'>
             <div className='flex flex-col gap-6 md:flex-row md:items-center md:justify-between'>
                 <div className='max-w-2xl'>
                     {eyebrow ? (
@@ -23,13 +23,13 @@ export function ChildHeader({ title, subtitle, eyebrow, rewardCount }: ChildHead
                     <p className='mt-3 max-w-2xl text-base font-bold text-slate-600 sm:text-lg'>{subtitle}</p>
                 </div>
                 <div className='grid gap-3 sm:grid-cols-2'>
-                    <div className='rounded-[1.5rem] bg-white/90 px-4 py-3 shadow-sm'>
+                    <div className='rounded-3xl bg-white/90 px-4 py-3 shadow-sm'>
                         <div className='mb-1 flex items-center gap-2 text-sm font-black text-slate-500'>
-                            <CalendarDays className='h-4 w-4' /> Dia del examen
+                            <CalendarDays className='h-4 w-4' /> Fechas
                         </div>
-                        <p className='text-sm font-bold text-slate-700'>Martes 11 de Agosto 2026</p>
+                        <p className='text-sm font-bold text-slate-700'>Science: Aug 27 · Grammar: Aug 28</p>
                     </div>
-                    <div className='rounded-[1.5rem] bg-slate-900 px-4 py-3 text-white shadow-sm'>
+                    <div className='rounded-3xl bg-slate-900 px-4 py-3 text-white shadow-sm'>
                         <div className='mb-1 flex items-center gap-2 text-sm font-black text-amber-200'>
                             <Star className='h-4 w-4' /> Banco de estrellas
                         </div>

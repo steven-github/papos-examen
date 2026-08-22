@@ -1,6 +1,6 @@
-# Grammar Galaxy Mission - Next.js App
+# Ian Exam Prep - Next.js App
 
-Interactive educational web app in Next.js for a 3rd grade grammar exam.
+Interactive educational web app in Next.js for Ian's 3rd grade Science and Grammar exams.
 
 ## Tech Stack
 
@@ -21,24 +21,25 @@ Interactive educational web app in Next.js for a 3rd grade grammar exam.
 - Final mock exam
 - Mistake review with correction explanations
 - Progress dashboard with weak-area insights
-- Progressive lesson unlock system
+- Exam-first study paths for Science and Grammar
 
 ## Exam Context Embedded in the App
 
 - School: Love at Work International Christian School
-- Subject: Grammar
-- Evaluation: #2
+- Student: Ian
+- Subjects: Science and Grammar
+- Science Test: II Test, 10%
+- Grammar Evaluation: #2, Second Period
 - School Year: 2026
-- Teacher: Priscilla Martinez
-- Exam Date: Friday, May 29th, 2026
+- Science Teacher: Maria Paula Guillen Calvo
+- Grammar Teacher: Priscilla Martinez
+- Science Date: August 27, 2026
+- Grammar Due Date: Friday, August 28th, 2026
 
 ## Topics Included
 
-- Subject Pronouns
-- Possessive Adjectives
-- Can / Can't
-- Present Progressive
-- Verb-ing vocabulary and usage
+- Science: Types of Pollution, Waste, Reduce/Reuse/Recycle, Properties of Matter, States of Matter, Changes of State
+- Grammar: Present Simple affirmative/negative/questions, have/has, good at, Unit 6 vocabulary, adverbs of frequency, in/on/at, a/an/some, would like, comparative and superlative adjectives
 
 ## Project Structure
 

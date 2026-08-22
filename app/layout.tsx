@@ -1,22 +1,11 @@
 import type { Metadata } from "next";
-import { Baloo_2, Nunito } from "next/font/google";
 import { PronunciationController } from "@/components/PronunciationController";
 import "./globals.css";
 
-const baloo = Baloo_2({
-  variable: "--font-baloo",
-  subsets: ["latin"],
-});
-
-const nunito = Nunito({
-  variable: "--font-nunito",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Phonics Galaxy Mission",
+  title: "Ian Exam Prep",
   description:
-    "Plataforma interactiva de repaso de Phonics para 3rd grade, con lecciones, quiz, simulacro y seguimiento.",
+    "App interactiva de repaso para los examenes de Science y Grammar de 3rd grade.",
 };
 
 export default function RootLayout({
@@ -25,10 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="es"
-      className={`${baloo.variable} ${nunito.variable} h-full antialiased`}
-    >
+    <html lang="es" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
         <PronunciationController />
         {children}

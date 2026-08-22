@@ -73,12 +73,22 @@ function buildFillBlankHint(question: FillBlankQuestion): string {
 
   let ruleHint = "";
 
-  if (question.topic === "ow-ou-blends") {
-    ruleHint = "Piensa en el patron de sonido: ¿debe ser ow o ou?";
-  } else if (question.topic === "ld-lt-endings") {
-    ruleHint = "Mira el final de la palabra: ¿necesita ld o lt?";
-  } else if (question.topic === "nd-nt-mp-endings") {
-    ruleHint = "Completa con el final correcto: nd, nt o mp.";
+  if (question.topic === "science-pollution") {
+    ruleHint = "Piensa si la situacion afecta air, water o soil.";
+  } else if (question.topic === "science-waste-recycling") {
+    ruleHint = "Recuerda waste y las acciones reduce, reuse and recycle.";
+  } else if (question.topic === "science-properties-matter") {
+    ruleHint = "Busca una propiedad de matter: color, temperature, weight, texture o taste.";
+  } else if (question.topic === "science-changes-state") {
+    ruleHint = "Piensa en states of matter o cambios como melt, freeze, boil, evaporate y condense.";
+  } else if (question.topic === "grammar-present-simple") {
+    ruleHint = "Revisa si necesitas do, does, don't, doesn't, have o has.";
+  } else if (question.topic === "grammar-good-at-vocabulary") {
+    ruleHint = "Usa good at o los verbos de rutina: gets, has, brushes, walks y plays.";
+  } else if (question.topic === "grammar-review-structures") {
+    ruleHint = "Revisa adverbs, in/on/at, a/an/some, would like, or aw/or/oy/oi.";
+  } else if (question.topic === "grammar-comparatives-superlatives") {
+    ruleHint = "Compara con -er than o usa the + -est para superlatives.";
   }
 
   // Extra guidance from wording patterns in the prompt.

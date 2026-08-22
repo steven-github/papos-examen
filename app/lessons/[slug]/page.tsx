@@ -7,7 +7,7 @@ import { HighlightedEvaluableText } from "@/components/HighlightedEvaluableText"
 import type { LessonSlug } from "@/types";
 import Link from "next/link";
 import { NavigationMenu } from "@/components/NavigationMenu";
-import { lessonMap } from "@/data/lessons";
+import { lessonMap, subjectLabels } from "@/data/lessons";
 import { useParams } from "next/navigation";
 import { useProgress } from "@/hooks/useProgress";
 
@@ -43,7 +43,7 @@ export default function LessonDetailPage() {
                             {lesson.emoji} <span className='evaluable-text'>{lesson.title}</span>
                         </>
                     }
-                    subtitle={lesson.goal}
+                    subtitle={`${subjectLabels[lesson.subject]} · ${lesson.source} · ${lesson.goal}`}
                     rewardCount={progress.rewards}
                 />
 

@@ -11,7 +11,7 @@ const createScoreRecord = (): ScoreRecord => ({
 
 export const initialProgress: AppProgress = {
   completedLessons: [],
-  unlockedLessons: [lessonOrder[0]],
+  unlockedLessons: lessonOrder,
   quizScores: {},
   practiceScores: {},
   gameHighScores: {},
@@ -57,8 +57,7 @@ export function loadProgress(): AppProgress {
       rewards: parsed.rewards ?? 0,
     };
 
-    const unlocked = new Set<LessonSlug>(baseProgress.unlockedLessons);
-    unlocked.add(lessonOrder[0]);
+    const unlocked = new Set<LessonSlug>([...baseProgress.unlockedLessons, ...lessonOrder]);
 
     lessonOrder.forEach((lesson, index) => {
       const hasCompleted = baseProgress.completedLessons.includes(lesson);

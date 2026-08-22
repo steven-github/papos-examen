@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Brain, ChartColumnBig, GraduationCap, House, PenSquare, RotateCcw } from "lucide-react";
+import { BookOpen, GraduationCap, House } from "lucide-react";
 
 const items = [
   { href: "/", label: "Inicio", icon: House },
-  { href: "/lessons", label: "Aprender", icon: BookOpen },
-  { href: "/mock-exam", label: "Examen", icon: GraduationCap },
+  { href: "/lessons", label: "Temas", icon: BookOpen },
+  { href: "/mock-exam", label: "Simulacro", icon: GraduationCap },
 ];
 
 export function NavigationMenu() {

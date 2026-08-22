@@ -1,7 +1,14 @@
+export type ExamSubject = "science" | "grammar";
+
 export type LessonSlug =
-  "ow-ou-blends"
-  | "ld-lt-endings"
-  | "nd-nt-mp-endings";
+  "science-pollution"
+  | "science-waste-recycling"
+  | "science-properties-matter"
+  | "science-changes-state"
+  | "grammar-present-simple"
+  | "grammar-good-at-vocabulary"
+  | "grammar-review-structures"
+  | "grammar-comparatives-superlatives";
 
 export type TopicId = LessonSlug | "mixed";
 
@@ -26,9 +33,11 @@ export interface LessonQuickCheck {
 
 export interface Lesson {
   slug: LessonSlug;
+  subject: ExamSubject;
   title: string;
   emoji: string;
   color: string;
+  source: string;
   goal: string;
   simpleExplanation: string;
   evaluablePhrases: string[];
@@ -99,6 +108,7 @@ export type ExerciseQuestion =
 
 export interface QuizSet {
   id: LessonSlug;
+  subject: ExamSubject;
   title: string;
   evaluablePhrases: string[];
   emoji: string;

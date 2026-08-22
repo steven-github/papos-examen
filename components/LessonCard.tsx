@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Lock } from "lucide-react";
 
 import { HighlightedEvaluableText } from "@/components/HighlightedEvaluableText";
+import { subjectLabels } from "@/data/lessons";
 import type { Lesson } from "@/types";
 
 interface LessonCardProps {
@@ -13,7 +14,7 @@ interface LessonCardProps {
 export function LessonCard({ lesson, unlocked, completed }: LessonCardProps) {
   return (
     <article
-      className={`glass-card rounded-[2rem] bg-gradient-to-br p-5 ${lesson.color} transition-transform duration-300 ${unlocked ? "hover:-translate-y-1" : "opacity-70 grayscale-[0.15]"}`}
+      className={`glass-card rounded-4xl bg-linear-to-br p-5 ${lesson.color} transition-transform duration-300 ${unlocked ? "hover:-translate-y-1" : "opacity-70 grayscale-[0.15]"}`}
     >
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
@@ -23,9 +24,10 @@ export function LessonCard({ lesson, unlocked, completed }: LessonCardProps) {
           </h3>
         </div>
         <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-slate-500">
-          {completed ? "lista" : unlocked ? "abierta" : "bloqueada"}
+          {completed ? "lista" : subjectLabels[lesson.subject]}
         </span>
       </div>
+      <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-blue-700">{lesson.source}</p>
       <p className="mb-4 text-sm text-slate-600">{lesson.goal}</p>
       <p className="mb-6 text-sm font-semibold text-slate-700">
         <HighlightedEvaluableText text={lesson.simpleExplanation} phrases={lesson.evaluablePhrases} />
