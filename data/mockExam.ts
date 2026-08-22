@@ -8,7 +8,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Which topic belongs to Science pages 52 to 58?",
     options: ["types of pollution", "comparatives", "present simple"],
     correctAnswer: "types of pollution",
-    explanation: "Science pages 52 to 58 cover types of pollution.",
+    explanation: "Las páginas 52 a 58 de Science explican types of pollution.",
   },
   {
     id: "mock-science-2",
@@ -17,7 +17,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Trash in the ocean is ___.",
     options: ["soil pollution", "water pollution", "air pollution"],
     correctAnswer: "water pollution",
-    explanation: "The ocean is water, so this is water pollution.",
+    explanation: "El ocean contiene water, por eso es water pollution.",
   },
   {
     id: "mock-science-3",
@@ -25,7 +25,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "Smoke in the sky is ___ pollution.",
     acceptableAnswers: ["air"],
-    explanation: "Smoke in the sky affects the air.",
+    explanation: "Smoke en el sky afecta el air, es decir, el aire.",
   },
   {
     id: "mock-science-4",
@@ -34,7 +34,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Which pair appears in the Waste topic?",
     options: ["organic and inorganic", "wide and old", "do and does"],
     correctAnswer: "organic and inorganic",
-    explanation: "The Science topic sheet lists organic waste and inorganic waste.",
+    explanation: "La hoja de Science incluye organic waste e inorganic waste.",
   },
   {
     id: "mock-science-5",
@@ -43,7 +43,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Read and decide.",
     statement: "Non-biodegradable is a waste word from the topic sheet.",
     correctAnswer: "true",
-    explanation: "Waste includes biodegradable and non-biodegradable.",
+    explanation: "Waste incluye las categorías biodegradable y non-biodegradable.",
   },
   {
     id: "mock-science-6",
@@ -56,7 +56,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
       { left: "recycle", right: "make useful again" },
     ],
     options: ["use less", "use again", "make useful again", "hot or cold"],
-    explanation: "Reduce, Reuse and Recycle are listed in Science pages 60 to 66.",
+    explanation: "Reduce, Reuse y Recycle aparecen en las páginas 60 a 66 de Science.",
   },
   {
     id: "mock-science-7",
@@ -65,7 +65,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Which list only has properties of matter from the topic sheet?",
     options: ["color, temperature, weight", "air, water, soil", "melt, freeze, boil"],
     correctAnswer: "color, temperature, weight",
-    explanation: "Properties include color, temperature, weight, texture and taste.",
+    explanation: "Las properties incluyen color, temperature, weight, texture y taste.",
   },
   {
     id: "mock-science-8",
@@ -74,7 +74,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Texture tells how something ___.",
     options: ["feels", "moves", "sings"],
     correctAnswer: "feels",
-    explanation: "Texture is how something feels.",
+    explanation: "Texture indica cómo se siente algo.",
   },
   {
     id: "mock-science-9",
@@ -82,7 +82,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "How heavy something is means its ___.",
     acceptableAnswers: ["weight"],
-    explanation: "Weight tells how heavy something is.",
+    explanation: "Weight indica qué tan heavy o pesado es algo.",
   },
   {
     id: "mock-science-10",
@@ -91,7 +91,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Which list has the states of matter?",
     options: ["solid, liquid and gas", "reduce, reuse and recycle", "air, water and soil"],
     correctAnswer: "solid, liquid and gas",
-    explanation: "The topic sheet lists these states of matter.",
+    explanation: "La hoja de topics incluye estos states of matter.",
   },
   {
     id: "mock-science-11",
@@ -100,7 +100,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "What change happens when water becomes ice?",
     options: ["freeze", "melt", "boil"],
     correctAnswer: "freeze",
-    explanation: "Freeze means water becomes ice.",
+    explanation: "Freeze significa que water se convierte en ice.",
   },
   {
     id: "mock-science-12",
@@ -108,7 +108,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "Water as a gas is called ___.",
     acceptableAnswers: ["steam"],
-    explanation: "The topic sheet includes steam.",
+    explanation: "La hoja de topics incluye steam, que es agua en forma de gas.",
   },
   {
     id: "mock-grammar-1",
@@ -117,7 +117,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Choose the correct spelling for he/she/it: study.",
     options: ["studys", "studies", "studyes"],
     correctAnswer: "studies",
-    explanation: "For consonant + y, change y to ies.",
+    explanation: "Cuando el verbo termina en consonante + y, cambiamos y por ies.",
   },
   {
     id: "mock-grammar-2",
@@ -126,7 +126,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Choose the correct sentence.",
     options: ["She plays tennis.", "She play tennis.", "She plaies tennis."],
     correctAnswer: "She plays tennis.",
-    explanation: "Most verbs add s with he/she/it.",
+    explanation: "La mayoría de los verbos agregan s con he, she e it.",
   },
   {
     id: "mock-grammar-3",
@@ -134,7 +134,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "He ___ have breakfast every day?",
     acceptableAnswers: ["Does"],
-    explanation: "Use Does with he in questions.",
+    explanation: "Usamos Does con he en las preguntas.",
   },
   {
     id: "mock-grammar-4",
@@ -143,7 +143,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Short answer: Do you like milk?",
     options: ["Yes, I do.", "Yes, he does.", "Yes, she is."],
     correctAnswer: "Yes, I do.",
-    explanation: "With Do you, answer Yes, I do or No, I don't.",
+    explanation: "Cuando la pregunta comienza con Do you, respondemos Yes, I do o No, I don't.",
   },
   {
     id: "mock-grammar-5",
@@ -152,7 +152,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Put the words in order.",
     tokens: ["Does", "go", "Heidi", "to", "school", "by", "car"],
     correctOrder: ["Does", "Heidi", "go", "to", "school", "by", "car"],
-    explanation: "Use Does + subject + base verb.",
+    explanation: "La estructura es Does + subject + verbo base.",
   },
   {
     id: "mock-grammar-6",
@@ -161,7 +161,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Answer: Are your friends good at chess?",
     options: ["Yes, they are.", "Yes, he is.", "No, she isn't."],
     correctAnswer: "Yes, they are.",
-    explanation: "Friends is plural.",
+    explanation: "Friends es plural, por eso usamos they.",
   },
   {
     id: "mock-grammar-7",
@@ -170,7 +170,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Answer: Are you good at art?",
     options: ["Yes, I'm quite good at painting.", "Yes, she is.", "Yes, they are."],
     correctAnswer: "Yes, I'm quite good at painting.",
-    explanation: "This matches the workbook answer for the art question.",
+    explanation: "Esta es la respuesta del workbook para la pregunta sobre art.",
   },
   {
     id: "mock-grammar-8",
@@ -178,7 +178,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "Billy ___ up at seven o'clock on Mondays.",
     acceptableAnswers: ["gets"],
-    explanation: "The text starts: Billy gets up at seven o'clock.",
+    explanation: "El texto comienza: Billy gets up at seven o'clock. Gets up significa se levanta.",
   },
   {
     id: "mock-grammar-9",
@@ -186,7 +186,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "After school, he ___ with his friends in the park.",
     acceptableAnswers: ["plays"],
-    explanation: "The verb from the box is plays.",
+    explanation: "El verbo correcto del cuadro es plays, que significa juega.",
   },
   {
     id: "mock-grammar-10",
@@ -195,7 +195,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Complete: Calum is going to Paris ___ Saturday.",
     options: ["on", "in", "at"],
     correctAnswer: "on",
-    explanation: "Use on with days.",
+    explanation: "Usamos on con los días.",
   },
   {
     id: "mock-grammar-11",
@@ -204,7 +204,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Complete: The class starts ___ 9 o'clock.",
     options: ["at", "in", "on"],
     correctAnswer: "at",
-    explanation: "Use at with times.",
+    explanation: "Usamos at con las horas.",
   },
   {
     id: "mock-grammar-12",
@@ -213,7 +213,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Complete: ___ rice",
     options: ["some", "a", "an"],
     correctAnswer: "some",
-    explanation: "Rice is used with some in the review exercise.",
+    explanation: "En el ejercicio de Review usamos some con rice.",
   },
   {
     id: "mock-grammar-13",
@@ -222,7 +222,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Complete: Waitress: ___ ice cream?",
     options: ["Do you like", "I'd like", "No, thanks"],
     correctAnswer: "Do you like",
-    explanation: "Milly answers: Yes, of course I do.",
+    explanation: "Milly responde Yes, of course I do, por eso la pregunta usa Do you like.",
   },
   {
     id: "mock-grammar-14",
@@ -230,7 +230,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "Flowers and trees grow in s___l.",
     acceptableAnswers: ["oi"],
-    explanation: "s + oi + l = soil.",
+    explanation: "Completamos s + oi + l para formar soil, que significa suelo.",
   },
   {
     id: "mock-grammar-15",
@@ -238,7 +238,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "The farmer has a big f___k.",
     acceptableAnswers: ["or"],
-    explanation: "f + or + k = fork.",
+    explanation: "Completamos f + or + k para formar fork, que significa tenedor.",
   },
   {
     id: "mock-grammar-16",
@@ -247,7 +247,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Complete: A is ___ than B.",
     options: ["faster", "fastest", "the fastest"],
     correctAnswer: "faster",
-    explanation: "Use faster than for a comparative sentence.",
+    explanation: "Usamos faster than en una oración comparative.",
   },
   {
     id: "mock-grammar-17",
@@ -256,7 +256,7 @@ export const mockExamQuestions: ExerciseQuestion[] = [
     prompt: "Complete: A is ___ biggest.",
     options: ["the", "than", "big"],
     correctAnswer: "the",
-    explanation: "Use the with superlatives.",
+    explanation: "Usamos the con los superlatives.",
   },
   {
     id: "mock-grammar-18",
@@ -269,6 +269,6 @@ export const mockExamQuestions: ExerciseQuestion[] = [
       { left: "old", right: "older than" },
     ],
     options: ["wider than", "longer than", "older than", "the widest"],
-    explanation: "Comparatives compare two things and use than.",
+    explanation: "Los comparatives comparan dos cosas y usan than.",
   },
 ];

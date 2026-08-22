@@ -249,7 +249,7 @@ export const lessons: Lesson[] = [
     goal: "Identifica los states of matter y sus cambios: solid, liquid, gas, melt, freeze, boil, evaporate, condense y steam.",
     simpleExplanation:
       "Matter puede estar en estado solid, liquid o gas. Puede cambiar de estado con melt, freeze, boil, evaporate o condense. Steam es agua en forma de gas.",
-    evaluablePhrases: ["solid", "liquid", "gas", "melt", "freeze", "boil", "evaporate", "condense", "steam", "states of matter"],
+    evaluablePhrases: ["matter", "solid", "liquid", "gas", "melt", "freeze", "boil", "evaporate", "condense", "steam", "states of matter"],
     audioText:
       "Tema de Science: States of Matter and Changes of State. Los estados son solid, liquid y gas. Los cambios incluyen melt, freeze, boil, evaporate y condense. Steam es agua en forma de gas.",
     sections: [
@@ -317,8 +317,8 @@ export const lessons: Lesson[] = [
     source: "Grammar Friends Unit 6 pages 30 to 33 and Review 2 page 35",
     goal: "Usa Present Simple en oraciones affirmative, negative, questions y short answers, incluyendo have y has.",
     simpleExplanation:
-      "Usamos Present Simple para hablar de habits, facts y opinions. Agrega s o es con he, she e it. Usa do not o does not para negar, y Do o Does para hacer preguntas.",
-    evaluablePhrases: ["present simple", "do", "does", "don't", "doesn't", "have", "has", "habits", "facts", "opinions"],
+      "Usamos Present Simple para hablar de habits, facts y opinions. Agrega 's' o 'es' con he, she e it. Usa do not (don't) o does not (doesn't) para negar, y Do o Does para hacer preguntas.",
+    evaluablePhrases: ["present simple", "do not", "does not", "do", "does", "don't", "doesn't", "have", "has", "habits", "facts", "opinions", "he", "she", "it"],
     audioText:
       "Tema de Grammar: Present Simple. Escucha los cambios: I play, he plays. I don't play, he doesn't play. Do you like milk? Yes, I do. Does he have breakfast? Yes, he does.",
     sections: [
@@ -386,7 +386,7 @@ export const lessons: Lesson[] = [
     source: "Family and Friends page 55, exercises 4 and 5; Grammar Friends Unit 6 vocabulary",
     goal: "Responde preguntas con good at y usa correctamente el vocabulario de daily routine de Unit 6.",
     simpleExplanation:
-      "Usamos good at para decir que alguien es bueno en una actividad: surfing, basketball, music, art, chess o snorkeling. Para hablar de la daily routine usamos verbos como gets, has, brushes, walks y plays.",
+      "Usamos good at para decir que alguien es bueno en una actividad: surfing, basketball, music, art, chess o snorkeling. Para hablar de la rutina diaria usamos verbos como gets, has, brushes, walks y plays.",
     evaluablePhrases: ["good at", "surfing", "basketball", "music", "art", "chess", "snorkeling", "gets", "has", "brushes", "walks", "plays"],
     audioText:
       "Tema de Grammar: good at y vocabulario de daily routine. Is Tom good at surfing? Yes, he is. Billy gets up, has a shower, brushes his teeth, walks to school and plays with friends.",
@@ -524,8 +524,8 @@ export const lessons: Lesson[] = [
     source: "Family and Friends page 49",
     goal: "Escribe oraciones con comparative y superlative adjectives: wide, big, fast, long y old.",
     simpleExplanation:
-      "Usamos comparative adjectives para comparar dos cosas: wider than, bigger than, faster than, longer than y older than. Usamos superlatives para decir que algo es el que más destaca: the widest, the biggest, the fastest, the longest y the oldest.",
-    evaluablePhrases: ["comparative", "superlative", "wide", "big", "fast", "long", "old", "wider than", "the widest", "bigger than", "the biggest", "faster than", "the fastest", "longer than", "the longest", "older than", "the oldest"],
+      "Usamos comparatives adjectives para comparar dos cosas: wider than, bigger than, faster than, longer than y older than. Usamos superlatives adjectives para decir que algo es el que más destaca: the widest, the biggest, the fastest, the longest y the oldest.",
+    evaluablePhrases: ["comparatives adjectives", "superlatives adjectives", "superlative adjectives", "comparative", "superlative", "wide", "big", "fast", "long", "old", "wider than", "the widest", "bigger than", "the biggest", "faster than", "the fastest", "longer than", "the longest", "older than", "the oldest"],
     audioText:
       "Tema de Grammar: comparative y superlative adjectives. A is wider than B significa que A es más ancho que B. A is the widest significa que A es el más ancho. Practica wide, big, fast, long y old.",
     sections: [
