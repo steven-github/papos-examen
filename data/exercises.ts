@@ -8,7 +8,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Which type of pollution affects the air we breathe?",
     options: ["air pollution", "water pollution", "soil pollution"],
     correctAnswer: "air pollution",
-    explanation: "Air pollution affects the air.",
+    explanation: "Air pollution afecta el air, es decir, el aire.",
   },
   {
     id: "science-pollution-2",
@@ -21,7 +21,7 @@ export const practiceExercises: ExerciseQuestion[] = [
       { left: "soil pollution", right: "soil" },
     ],
     options: ["air", "water", "soil", "recycle"],
-    explanation: "The topic sheet lists air, water and soil pollution.",
+    explanation: "La hoja de topics incluye air pollution, water pollution y soil pollution.",
   },
   {
     id: "science-pollution-3",
@@ -29,7 +29,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "Trash in a river is ___ pollution.",
     acceptableAnswers: ["water"],
-    explanation: "A river is water, so this is water pollution.",
+    explanation: "Un river contiene water, por eso es water pollution.",
   },
   {
     id: "science-pollution-4",
@@ -38,7 +38,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Read and decide.",
     statement: "Soil pollution affects the ground.",
     correctAnswer: "true",
-    explanation: "Soil means ground.",
+    explanation: "Soil significa suelo o ground.",
   },
   {
     id: "science-waste-1",
@@ -47,7 +47,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Which group has the 3 Rs?",
     options: ["reduce, reuse and recycle", "solid, liquid and gas", "melt, freeze and boil"],
     correctAnswer: "reduce, reuse and recycle",
-    explanation: "The topic sheet lists Reduce, Reuse and Recycle.",
+    explanation: "La hoja de topics incluye Reduce, Reuse y Recycle.",
   },
   {
     id: "science-waste-2",
@@ -56,7 +56,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Which item is organic waste?",
     options: ["apple peel", "plastic bag", "metal can"],
     correctAnswer: "apple peel",
-    explanation: "Organic waste comes from living things.",
+    explanation: "Organic waste viene de seres vivos.",
   },
   {
     id: "science-waste-3",
@@ -64,7 +64,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "Use less means ___.",
     acceptableAnswers: ["reduce"],
-    explanation: "Reduce means use less.",
+    explanation: "Reduce significa usar menos.",
   },
   {
     id: "science-waste-4",
@@ -77,7 +77,7 @@ export const practiceExercises: ExerciseQuestion[] = [
       { left: "recycle", right: "make materials useful again" },
     ],
     options: ["use less", "use again", "make materials useful again", "boil water"],
-    explanation: "These are the actions listed in the Science topic sheet.",
+    explanation: "Estas son las acciones de la hoja de Science: reduce, reuse y recycle.",
   },
   {
     id: "science-properties-1",
@@ -86,7 +86,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Which property tells if something is hot or cold?",
     options: ["temperature", "weight", "color"],
     correctAnswer: "temperature",
-    explanation: "Temperature tells hot or cold.",
+    explanation: "Temperature indica si algo está hot o cold.",
   },
   {
     id: "science-properties-2",
@@ -95,7 +95,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Which property tells how heavy something is?",
     options: ["taste", "weight", "texture"],
     correctAnswer: "weight",
-    explanation: "Weight tells how heavy something is.",
+    explanation: "Weight indica qué tan heavy o pesado es algo.",
   },
   {
     id: "science-properties-3",
@@ -108,7 +108,7 @@ export const practiceExercises: ExerciseQuestion[] = [
       { left: "texture", right: "rough" },
     ],
     options: ["red", "hot", "rough", "recycle"],
-    explanation: "Color, temperature and texture are properties of matter.",
+    explanation: "Color, temperature y texture son properties of matter.",
   },
   {
     id: "science-properties-4",
@@ -117,7 +117,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Read and decide.",
     statement: "Taste is a property of matter in the topic sheet.",
     correctAnswer: "true",
-    explanation: "The listed properties are color, temperature, weight, texture and taste.",
+    explanation: "Las properties indicadas son color, temperature, weight, texture y taste.",
   },
   {
     id: "science-state-1",
@@ -126,7 +126,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "What are the states of matter in the topic sheet?",
     options: ["solid, liquid and gas", "air, water and soil", "reduce, reuse and recycle"],
     correctAnswer: "solid, liquid and gas",
-    explanation: "The topic sheet lists solid, liquid and gas.",
+    explanation: "La hoja de topics incluye solid, liquid y gas.",
   },
   {
     id: "science-state-2",
@@ -134,7 +134,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "Ice can ___ and become water.",
     acceptableAnswers: ["melt"],
-    explanation: "Melt means change from solid to liquid.",
+    explanation: "Melt significa cambiar de solid a liquid.",
   },
   {
     id: "science-state-3",
@@ -147,7 +147,7 @@ export const practiceExercises: ExerciseQuestion[] = [
       { left: "steam", right: "gas" },
     ],
     options: ["ice", "water", "gas", "soil"],
-    explanation: "Ice is solid, water is liquid and steam is gas.",
+    explanation: "Ice es solid, water es liquid y steam es gas.",
   },
   {
     id: "science-state-4",
@@ -156,7 +156,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Read and decide.",
     statement: "Freeze means liquid changes into solid.",
     correctAnswer: "true",
-    explanation: "Water freezes and becomes ice.",
+    explanation: "Water hace freeze y se convierte en ice.",
   },
   {
     id: "grammar-present-1",
@@ -165,7 +165,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Choose the correct he/she/it form of watch.",
     options: ["watchs", "watches", "watchies"],
     correctAnswer: "watches",
-    explanation: "Verbs ending in ch add es: watches.",
+    explanation: "Los verbos que terminan en ch agregan es: watch se convierte en watches.",
   },
   {
     id: "grammar-present-2",
@@ -173,7 +173,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "She ___ breakfast every day.",
     acceptableAnswers: ["has"],
-    explanation: "Have changes to has with she.",
+    explanation: "Have cambia a has cuando usamos she.",
   },
   {
     id: "grammar-present-3",
@@ -182,7 +182,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Complete: ___ Heidi go to school by car?",
     options: ["Do", "Does", "Has"],
     correctAnswer: "Does",
-    explanation: "Use Does with Heidi because Heidi is she.",
+    explanation: "Usamos Does con Heidi porque para Heidi usamos she.",
   },
   {
     id: "grammar-present-4",
@@ -191,7 +191,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Put the words in order.",
     tokens: ["you", "Do", "breakfast", "after", "brush", "your", "teeth"],
     correctOrder: ["Do", "you", "brush", "your", "teeth", "after", "breakfast"],
-    explanation: "Present simple questions start with Do or Does.",
+    explanation: "Las preguntas en Present Simple comienzan con Do o Does.",
   },
   {
     id: "grammar-good-1",
@@ -200,7 +200,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Answer: Is Maria good at music?",
     options: ["Yes, she is.", "Yes, he is.", "Yes, they are."],
     correctAnswer: "Yes, she is.",
-    explanation: "Maria is she.",
+    explanation: "Para Maria usamos el pronombre she.",
   },
   {
     id: "grammar-good-2",
@@ -209,7 +209,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Answer: Are your friends good at chess?",
     options: ["Yes, she is.", "Yes, they are.", "No, she isn't."],
     correctAnswer: "Yes, they are.",
-    explanation: "Friends is plural, so use they are.",
+    explanation: "Friends es plural, por eso usamos they are.",
   },
   {
     id: "grammar-good-3",
@@ -217,7 +217,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "Billy ___ his teeth after breakfast.",
     acceptableAnswers: ["brushes"],
-    explanation: "The page uses brushes for his teeth.",
+    explanation: "La página usa brushes en la frase brushes his teeth.",
   },
   {
     id: "grammar-good-4",
@@ -230,7 +230,7 @@ export const practiceExercises: ExerciseQuestion[] = [
       { left: "Are your friends good at chess?", right: "Yes, they are." },
     ],
     options: ["Yes, he is.", "No, she isn't.", "Yes, they are.", "Yes, I do."],
-    explanation: "Choose the short answer that matches the subject.",
+    explanation: "Escoge la short answer que corresponde a la persona de la pregunta.",
   },
   {
     id: "grammar-review-1",
@@ -239,7 +239,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Complete: My birthday is ___ March.",
     options: ["in", "on", "at"],
     correctAnswer: "in",
-    explanation: "Use in with months.",
+    explanation: "Usamos in con los meses.",
   },
   {
     id: "grammar-review-2",
@@ -248,7 +248,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Complete: We go to the cafe ___ Saturdays.",
     options: ["at", "in", "on"],
     correctAnswer: "on",
-    explanation: "Use on with days.",
+    explanation: "Usamos on con los días.",
   },
   {
     id: "grammar-review-3",
@@ -256,7 +256,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     type: "fill-blank",
     prompt: "My favorite t___ is my new train.",
     acceptableAnswers: ["oy"],
-    explanation: "t + oy = toy.",
+    explanation: "Completamos t + oy para formar toy, que significa juguete.",
   },
   {
     id: "grammar-review-4",
@@ -269,7 +269,7 @@ export const practiceExercises: ExerciseQuestion[] = [
       { left: "oi", right: "oil" },
     ],
     options: ["paws", "fork", "oil", "train"],
-    explanation: "The page reviews aw, or, oy and oi words.",
+    explanation: "La página repasa palabras con aw, or, oy y oi.",
   },
   {
     id: "grammar-comparison-1",
@@ -278,7 +278,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Complete: A is ___ than B.",
     options: ["bigger", "biggest", "the biggest"],
     correctAnswer: "bigger",
-    explanation: "Use the comparative form before than.",
+    explanation: "Antes de than usamos la forma comparative: bigger than.",
   },
   {
     id: "grammar-comparison-2",
@@ -287,7 +287,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Complete: A is ___ oldest.",
     options: ["the", "than", "older"],
     correctAnswer: "the",
-    explanation: "Use the with superlatives.",
+    explanation: "Usamos the con los superlatives.",
   },
   {
     id: "grammar-comparison-3",
@@ -300,7 +300,7 @@ export const practiceExercises: ExerciseQuestion[] = [
       { left: "long", right: "the longest" },
     ],
     options: ["the widest", "the fastest", "the longest", "the newer"],
-    explanation: "These forms come from the Review 3 adjective box.",
+    explanation: "Estas formas aparecen en el cuadro de adjectives de Review 3.",
   },
   {
     id: "grammar-comparison-4",
@@ -309,7 +309,7 @@ export const practiceExercises: ExerciseQuestion[] = [
     prompt: "Read and decide.",
     statement: "Bigger than is a comparative form.",
     correctAnswer: "true",
-    explanation: "Comparatives compare two things and often use than.",
+    explanation: "Los comparatives comparan dos cosas y normalmente usan than.",
   },
 ];
 
