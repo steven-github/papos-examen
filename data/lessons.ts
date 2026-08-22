@@ -34,7 +34,7 @@ export const lessons: Lesson[] = [
       "Pollution ocurre cuando el environment se vuelve sucio o inseguro. Ian debe identificar air pollution, water pollution y soil pollution.",
     evaluablePhrases: ["pollution", "air pollution", "water pollution", "soil pollution", "environment"],
     audioText:
-      "Tema de Science: Tipos de Pollution (Air pollution afecta el aire; water pollution afecta ríos, lagos u océanos; y soil pollution afecta el suelo).",
+      "Tema de Science: Types of Pollution. Air pollution afecta el aire; water pollution afecta ríos, lagos u océanos; y soil pollution afecta el suelo.",
     sections: [
       {
         title: "Air pollution",
@@ -100,7 +100,7 @@ export const lessons: Lesson[] = [
     source: "Science Book pages 60 to 66",
     goal: "Clasifica waste e identifica acciones que ayudan a proteger el environment.",
     simpleExplanation:
-      "Waste significa desechos. Puede ser organic waste o inorganic waste, y también biodegradable o non-biodegradable. Las 3 Rs son reduce, reuse y recycle; estas acciones ayudan al sustainable consumption.",
+      "Waste. Puede ser organic waste o inorganic waste, y también biodegradable o non-biodegradable. Las 3 Rs son reduce, reuse y recycle; estas acciones ayudan al sustainable consumption.",
     evaluablePhrases: [
       "waste",
       "organic waste",
@@ -118,12 +118,12 @@ export const lessons: Lesson[] = [
       {
         title: "Organic waste",
         emoji: "🍎",
-        body: "Organic waste viene de seres vivos, por ejemplo cáscaras de frutas o restos de comida.",
+        body: "Organic waste viene de SERES VIVOS, por ejemplo cáscaras de frutas o restos de comida.",
       },
       {
         title: "Inorganic waste",
         emoji: "🥫",
-        body: "Inorganic waste no viene de seres vivos, por ejemplo latas, plástico o vidrio.",
+        body: "Inorganic waste viene de SERES NO VIVOS, por ejemplo latas, plástico o vidrio.",
       },
       {
         title: "Reduce, reuse, recycle",
