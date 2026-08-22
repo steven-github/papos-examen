@@ -180,7 +180,7 @@ export const lessons: Lesson[] = [
     goal: "Identifica las properties of matter: color, temperature, weight, texture y taste.",
     simpleExplanation:
       "Matter significa materia. Tiene properties que podemos observar. Ian debe reconocer color, temperature, weight, texture y taste.",
-    evaluablePhrases: ["matter", "color", "temperature", "weight", "texture", "taste", "sweet", "salty", "sour", "bitter", "properties"],
+    evaluablePhrases: ["matter", "color", "temperature", "weight", "texture", "taste", "hot", "cold", "smooth", "rough", "soft", "hard", "sweet", "salty", "sour", "bitter", "properties"],
     audioText:
       "Tema de Science: Properties of Matter. Las properties incluyen color, temperature, weight, texture y taste.",
     sections: [
