@@ -29,12 +29,12 @@ export const lessons: Lesson[] = [
     emoji: "🌎",
     color: "from-sky-200 via-cyan-100 to-white",
     source: "Science Book pages 52 to 58",
-    goal: "Identifica los diferentes types of pollution: air pollution, water pollution y soil pollution.",
+    goal: "Identifica los diferentes tipos de pollution: air pollution, water pollution y soil pollution.",
     simpleExplanation:
       "Pollution ocurre cuando el environment se vuelve sucio o inseguro. Ian debe identificar air pollution, water pollution y soil pollution.",
     evaluablePhrases: ["pollution", "air pollution", "water pollution", "soil pollution", "environment"],
     audioText:
-      "Tema de Science: Types of Pollution. Air pollution afecta el aire; water pollution afecta ríos, lagos u océanos; y soil pollution afecta el suelo.",
+      "Tema de Science: Tipos de Pollution (Air pollution afecta el aire; water pollution afecta ríos, lagos u océanos; y soil pollution afecta el suelo).",
     sections: [
       {
         title: "Air pollution",
