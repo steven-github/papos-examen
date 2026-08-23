@@ -100,7 +100,7 @@ export default function LessonDetailPage() {
                             {lesson.quickChecks.map((check) => (
                                 <div key={check.prompt} className='rounded-3xl bg-white/90 p-4'>
                                     <p className='text-base font-black text-slate-800'>
-                                        <HighlightedEvaluableText text={check.prompt} phrases={lesson.evaluablePhrases} showTranslations={false} />
+                                        <HighlightedEvaluableText text={check.prompt} phrases={lesson.evaluablePhrases} />
                                     </p>
                                     <p className='mt-3 text-xs font-black uppercase tracking-[0.16em] text-slate-500'>Opciones</p>
                                     <div className='mt-2 flex flex-wrap gap-2'>
