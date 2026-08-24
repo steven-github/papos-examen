@@ -11,14 +11,14 @@ import { lessonMap, subjectLabels } from "@/data/lessons";
 import { useParams } from "next/navigation";
 import { useProgress } from "@/hooks/useProgress";
 
-function ExplanationParagraphs({ text, phrases }: { text: string; phrases: string[] }) {
+function ExplanationParagraphs({ text, phrases, showTranslations = true }: { text: string; phrases: string[]; showTranslations?: boolean }) {
     const paragraphs = text.split(/(?<=[.!?])\s+/).filter(Boolean);
 
     return (
         <div className='space-y-3'>
             {paragraphs.map((paragraph) => (
                 <p key={paragraph} className='leading-relaxed'>
-                    <HighlightedEvaluableText text={paragraph} phrases={phrases} />
+                    <HighlightedEvaluableText text={paragraph} phrases={phrases} showTranslations={showTranslations} />
                 </p>
             ))}
         </div>
@@ -70,9 +70,9 @@ export default function LessonDetailPage() {
                         <p className='mb-2 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-blue-700'>
                             <Headphones className='h-4 w-4' /> Guion para audio
                         </p>
-                        <p className='text-sm font-bold text-slate-700'>
-                            <HighlightedEvaluableText text={lesson.audioText} phrases={lesson.evaluablePhrases} />
-                        </p>
+                        <div className='text-sm font-bold text-slate-700'>
+                            <ExplanationParagraphs text={lesson.audioText} phrases={lesson.evaluablePhrases} showTranslations={false} />
+                        </div>
                     </div>
                 </section>
 
