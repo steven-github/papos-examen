@@ -11,6 +11,20 @@ import { lessonMap, subjectLabels } from "@/data/lessons";
 import { useParams } from "next/navigation";
 import { useProgress } from "@/hooks/useProgress";
 
+function ExplanationParagraphs({ text, phrases }: { text: string; phrases: string[] }) {
+    const paragraphs = text.split(/(?<=[.!?])\s+/).filter(Boolean);
+
+    return (
+        <div className='space-y-3'>
+            {paragraphs.map((paragraph) => (
+                <p key={paragraph} className='leading-relaxed'>
+                    <HighlightedEvaluableText text={paragraph} phrases={phrases} />
+                </p>
+            ))}
+        </div>
+    );
+}
+
 export default function LessonDetailPage() {
     const params = useParams<{ slug: string }>();
     const slug = params.slug as LessonSlug;
@@ -49,9 +63,9 @@ export default function LessonDetailPage() {
 
                 <section className='glass-card rounded-4xl p-6'>
                     <h2 className='section-title text-3xl text-slate-800'>Explicacion simple</h2>
-                    <p className='mt-3 text-base font-bold text-slate-700'>
-                        <HighlightedEvaluableText text={lesson.simpleExplanation} phrases={lesson.evaluablePhrases} />
-                    </p>
+                    <div className='mt-3 text-base font-bold text-slate-700'>
+                        <ExplanationParagraphs text={lesson.simpleExplanation} phrases={lesson.evaluablePhrases} />
+                    </div>
                     <div className='mt-4 rounded-3xl bg-white/90 p-4'>
                         <p className='mb-2 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-blue-700'>
                             <Headphones className='h-4 w-4' /> Guion para audio
@@ -67,9 +81,9 @@ export default function LessonDetailPage() {
                         <article key={section.title} className='glass-card rounded-4xl p-5'>
                             <p className='text-3xl'>{section.emoji}</p>
                             <h3 className='section-title mt-2 text-2xl text-slate-800'>{section.title}</h3>
-                            <p className='mt-2 text-sm font-bold text-slate-600'>
-                                <HighlightedEvaluableText text={section.body} phrases={lesson.evaluablePhrases} />
-                            </p>
+                            <div className='mt-3 text-sm font-bold text-slate-600'>
+                                <ExplanationParagraphs text={section.body} phrases={lesson.evaluablePhrases} />
+                            </div>
                         </article>
                     ))}
                 </section>
