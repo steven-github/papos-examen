@@ -324,7 +324,7 @@ export const lessons: Lesson[] = [
     goal: "Usa Present Simple en oraciones affirmative, negative, questions y short answers, incluyendo have y has.",
     simpleExplanation:
       "Usamos Present Simple para hablar de habits, facts y opinions. Agrega 's' o 'es' con he, she e it. Usa do not (don't) o does not (doesn't) para negar, y Do o Does para hacer preguntas.",
-    evaluablePhrases: ["present simple", "do not", "does not", "do", "does", "don't", "doesn't", "have", "has", "habits", "facts", "opinions", "he", "she", "it", "He watches TV", "He watch TV", "He watchs TV", "She ___ have a bike", "___ you have toast for breakfast"],
+    evaluablePhrases: ["present simple", "do not", "does not", "do", "does", "don't", "doesn't", "have", "has", "habits", "facts", "opinions", "I", "you", "we", "they", "he", "she", "it", "play", "plays", "studies", "watches", "He watches TV", "He watch TV", "He watchs TV", "She ___ have a bike", "___ you have toast for breakfast", "brush", "brushes"],
     audioText:
       "Tema de Grammar: Present Simple. Escucha los cambios: I play, he plays. I don't play, he doesn't play. Do you like milk? Yes, I do. Does he have breakfast? Yes, he does.",
     sections: [
