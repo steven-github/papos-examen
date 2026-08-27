@@ -25,6 +25,20 @@ function ExplanationParagraphs({ text, phrases, showTranslations = true }: { tex
     );
 }
 
+function PlainParagraphs({ text }: { text: string }) {
+    const paragraphs = text.split(/(?<=[.!?])\s+/).filter(Boolean);
+
+    return (
+        <div className='space-y-3'>
+            {paragraphs.map((paragraph) => (
+                <p key={paragraph} className='leading-relaxed'>
+                    {paragraph}
+                </p>
+            ))}
+        </div>
+    );
+}
+
 export default function LessonDetailPage() {
     const params = useParams<{ slug: string }>();
     const slug = params.slug as LessonSlug;
@@ -64,7 +78,7 @@ export default function LessonDetailPage() {
                 <section className='glass-card rounded-4xl p-6'>
                     <h2 className='section-title text-3xl text-slate-800'>Explicacion simple</h2>
                     <div className='mt-3 text-base font-bold text-slate-700'>
-                        <ExplanationParagraphs text={lesson.simpleExplanation} phrases={lesson.evaluablePhrases} />
+                        <PlainParagraphs text={lesson.simpleExplanation} />
                     </div>
                     <div className='mt-4 rounded-3xl bg-white/90 p-4'>
                         <p className='mb-2 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-blue-700'>

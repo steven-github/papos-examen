@@ -84,7 +84,7 @@ export default function PracticePage() {
         <section className="glass-card rounded-4xl p-5">
           <h2 className="section-title text-3xl text-slate-800">Consejo</h2>
           <p className="mt-2 text-sm font-bold text-slate-600">
-            Practica cada examen por separado y luego haz el simulacro mixto final.
+            Practica cada tema y luego haz el simulacro final de Grammar.
           </p>
         </section>
       </main>
